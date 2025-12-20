@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LifeTracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+</head>
+<body>
+<div class="container">
+
+    <nav class="navbar">
+        <h1 class="nav-title">LifeTracker</h1>
+        <ul class="nav-links">
+            <li class="nav-item"><a href="#">Help</a></li>
+            <li class="nav-item"><a href="#">Log in</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="task-container" th:if="${tasks}" th:remove="all-but-first">
+            <div class="task-card" th:each="task : ${tasks}">
+                <form class="task-form" action="#" method="post">
+                    <input hidden value="?" name="taskId">
+                    <button class="task-button" type="submit">+</button>
+                </form>
+                <div class="task-content">
+                    <p class="task-title" th:text="${task.title}">Wash dishes</p>
+                    <p class="task-description" th:text="${task.description}">Do a 15 minute session of washing dishes</p>
+                </div>
+            </div>
+            <div class="task-card">
+                <form action="#" method="post">
+                    <input hidden value="?" name="taskId">
+                    <button class="task-button" type="submit">+</button>
+                </form>
+                <div class="task-content">
+                    <p class="task-title">Go on a walk</p>
+                    <p class="task-description">Go on a 30 minute walk around the city</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

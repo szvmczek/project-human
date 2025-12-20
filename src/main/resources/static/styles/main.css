@@ -1,0 +1,104 @@
+:root {
+    --soulgrey: #698696;
+    --white: #F4FCFB;
+    --grey: #ACBCBF;
+    --lblue: #5289AD;
+    --dblue: #243C4C;
+    --soulgrey-rgb: 105, 134, 150;
+    --white-rgb: 244, 252, 251;
+    --grey-rgb: 172, 188, 191;
+    --lblue-rgb: 82, 137, 173;
+    --dblue-rgb: 36, 60, 76;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 85%;
+    margin: 10px auto;
+}
+
+body {
+    background-color: var(--grey);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid var(--soulgrey);
+    box-shadow: 0 0 10px 1px rgba(var(--soulgrey-rgb), 0.5);
+    background-color: var(--lblue);
+    border-radius: 10px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin-right: 15%;
+}
+
+.nav-item {
+    margin: 5px;
+    padding: 20px;
+    border: 1px solid var(--grey);
+    border-radius: 10px;
+}
+
+.nav-item > a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+}
+
+.nav-title {
+    margin-left: 15%;
+    padding: 0;
+    align-self: center;
+    color: var(--grey);
+    text-shadow: 0 0 10px rgba(0,0,0, 0.5);
+}
+
+.main-content {
+    margin-top: 100px;
+}
+
+.task-container {
+    border: 2px solid var(--lblue);
+    border-radius: 10px;
+    box-shadow: 0 0 10px 1px rgba(var(--lblue-rgb), 0.5);
+}
+
+.task-card {
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid var(--dblue);
+    border-radius: 7px;
+    column-gap: 20px;
+    align-items: center;
+    display: flex;
+}
+
+.task-button {
+    border-radius: 5px;
+    background-color: var(--lblue);
+    color: var(--white);
+    border: none;
+    width: 44px;
+    height: 44px;
+}
+
+.task-button:hover {
+    background-color: var(--dblue);
+}
+
+.task-title {
+    font-weight: 700;
+}
+
+.task-description {
+    margin-top: 5px;
+}
