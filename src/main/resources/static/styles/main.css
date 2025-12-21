@@ -200,6 +200,20 @@ a > .nav-title {
     color: var(--lblue);
 }
 
+.form-add > a{
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.9rem;
+    display: block;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.form-add > a > p {
+    display: inline;
+    color: var(--grey);
+}
+
 
 footer {
     margin-top: 50px;

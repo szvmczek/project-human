@@ -17,20 +17,14 @@
         </ul>
     </nav>
 
-    <p th:if="${param.error}"
-       th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
-       class="mc-form-message">
-        Blad logowania.
-    </p>
-
-    <form action="#" class="form-add" method="post" th:action="@{/login}">
-        <h2>Log into your account</h2>
-        <div class="form-inside">
-            <input type="text"name="username" placeholder="email" required>
-            <input type="password" maxlength="200" name="password" placeholder="password">
-            <button type="submit">Login</button>
+    <form action="#" class="form-add" method="post" th:action="@{/register}">
+        <h2>Create new account</h2>
+        <div class="form-inside" th:object="${user}">
+            <input type="text" name="username" th:field="*{email}" placeholder="email" required>
+            <input type="password" maxlength="200" name="password" th:field="*{password}" placeholder="password">
+            <button type="submit">Register</button>
         </div>
-        <a href="#" th:href="@{/register}">Dont have an acoount? <p>Register</p></a>
+        <a href="#" th:href="@{/login}">Already have an account? <p>Log in</p></a>
     </form>
     <footer>
         Github: szvmczekk
