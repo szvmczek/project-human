@@ -23,4 +23,8 @@ public class TaskService {
     public List<Task> getAllTasks(){
         return StreamSupport.stream(taskRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
+
+    public void saveTask(Task task){
+        taskRepository.save(task);
+    }
 }
