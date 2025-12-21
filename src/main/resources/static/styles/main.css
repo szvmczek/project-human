@@ -90,12 +90,12 @@ a > .nav-title {
 }
 
 .task-button {
-    border-radius: 5px;
-    background-color: var(--lblue);
+    border-radius: 8px;
     color: var(--white);
-    border: none;
+    border: 4px solid var(--lblue);
     width: 44px;
     height: 44px;
+    background-color: var(--grey);
 }
 
 .task-button-delete {
@@ -112,7 +112,7 @@ a > .nav-title {
 }
 
 .task-button:hover {
-    background-color: var(--dblue);
+    opacity: 0.8;
 }
 
 .task-button-delete:hover {
@@ -120,7 +120,7 @@ a > .nav-title {
 }
 
 .done {
-    border: 2px solid green;
+    background-color: var(--lblue);
 }
 
 .task-title {

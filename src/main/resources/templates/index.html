@@ -26,10 +26,10 @@
         </section>
 
         <div class="task-container" th:if="${tasks}" th:remove="all-but-first">
-            <div class="task-card" th:each="task : ${tasks}" th:classappend="${task.done ? 'done' : ''}">
+            <div class="task-card" th:each="task : ${tasks}">
                 <form class="task-form" action="#" method="post" th:action="@{/complete}">
                     <input hidden value="#" th:value="${task.id}" name="id">
-                    <button class="task-button" type="submit">+</button>
+                    <button class="task-button" type="submit" th:classappend="${task.done ? 'done' : ''}"></button>
                 </form>
                 <div class="task-content">
                     <p class="task-title" th:text="${task.title}">Wash dishes</p>
@@ -43,12 +43,16 @@
             <div class="task-card">
                 <form action="#" method="post">
                     <input hidden value="?" name="taskId">
-                    <button class="task-button" type="submit">+</button>
+                    <button class="task-button done" type="submit"></button>
                 </form>
                 <div class="task-content">
                     <p class="task-title">Go on a walk</p>
                     <p class="task-description">Go on a 30 minute walk around the city</p>
                 </div>
+                <form class="task-delete-form" action="#" method="post" th:action="@{/delete}">
+                    <input hidden value="#" th:value="${task.id}" name="id">
+                    <button class="task-button-delete" type="submit">X</button>
+                </form>
             </div>
         </div>
     </main>
