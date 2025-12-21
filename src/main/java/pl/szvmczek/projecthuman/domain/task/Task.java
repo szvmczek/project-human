@@ -1,26 +1,38 @@
 package pl.szvmczek.projecthuman.domain.task;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import pl.szvmczek.projecthuman.domain.user.User;
+
+import java.time.LocalDateTime;
 
 @Entity
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
     private String title;
     private String description;
+    private LocalDateTime createdDate;
     private boolean done;
 
     public Task(String title, String description) {
         this.title = title;
         this.description = description;
         this.done = false;
+        this.createdDate = LocalDateTime.now();
     }
 
     public Task() {
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Long getId() {
@@ -53,5 +65,13 @@ public class Task {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
