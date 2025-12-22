@@ -46,7 +46,9 @@ public class TaskController {
     }
 
     @PostMapping("/add")
-    public String addTask(@ModelAttribute Task task){
+    public String addTask(@ModelAttribute Task task, @AuthenticationPrincipal UserCredentialsDto user){
+        Optional<User> authUser = userService.findUserByEmail(user.getEmail());
+        authUser.ifPresent(task::setUser);
         taskService.saveTask(task);
         return "redirect:/";
     }

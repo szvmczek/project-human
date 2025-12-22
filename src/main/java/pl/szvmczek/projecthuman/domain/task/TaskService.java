@@ -1,5 +1,6 @@
 package pl.szvmczek.projecthuman.domain.task;
 
+import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,7 @@ public class TaskService {
     public List<Task> findAllTasksFromUserId(Long userId){
         return taskRepository.findAllByUserId(userId);
     }
+
 
     public void saveTask(Task task){
         taskRepository.save(task);

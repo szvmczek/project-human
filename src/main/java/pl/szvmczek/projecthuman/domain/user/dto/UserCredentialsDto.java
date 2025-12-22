@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class UserCredentialsDto implements UserDetails {
+public class UserCredentialsDto implements UserDetails{
     private Long id;
     private String email;
     private String password;
