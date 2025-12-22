@@ -26,6 +26,10 @@ public class TaskService {
         return StreamSupport.stream(taskRepository.findAll().spliterator(), false).collect(Collectors.toList());
     }
 
+    public List<Task> findAllTasksFromUserId(Long userId){
+        return taskRepository.findAllByUserId(userId);
+    }
+
     public void saveTask(Task task){
         taskRepository.save(task);
     }

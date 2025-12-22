@@ -21,9 +21,13 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Optional<UserCredentialsDto> findUserByEmail(String email){
+    public Optional<UserCredentialsDto> findCredentialsByEmail(String email){
         return userRepository.findByEmail(email)
                 .map(UserCredentialsDtoMapper::map);
+    }
+
+    public Optional<User> findUserByEmail(String email){
+        return userRepository.findByEmail(email);
     }
 
     @Transactional
