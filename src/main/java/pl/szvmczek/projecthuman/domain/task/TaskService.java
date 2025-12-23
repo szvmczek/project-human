@@ -1,18 +1,11 @@
 package pl.szvmczek.projecthuman.domain.task;
 
-import jakarta.persistence.EntityManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskEditDto;
-import pl.szvmczek.projecthuman.domain.user.dto.UserCredentialsDto;
-import pl.szvmczek.projecthuman.error.AuthorizationDeniedException;
-import pl.szvmczek.projecthuman.error.TaskNotFoundException;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class TaskService {
