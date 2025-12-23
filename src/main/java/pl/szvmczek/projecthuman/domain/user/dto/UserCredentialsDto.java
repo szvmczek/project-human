@@ -5,7 +5,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,10 +20,6 @@ public class UserCredentialsDto implements UserDetails{
         this.roles = roles;
         this.id = id;
     }
-
-    public UserCredentialsDto() {
-    }
-
 
     public String getEmail() {
         return email;

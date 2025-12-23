@@ -120,7 +120,7 @@ a > .nav-title {
 
 .task-button-edit {
     border-radius: 5px;
-    background-color: darkorange;
+    background-color: sandybrown;
     color: var(--white);
     border: none;
     width: 40px;
@@ -132,6 +132,10 @@ a > .nav-title {
 
 .task-card .task-delete-form {
     margin-left: auto;
+}
+
+.task-button-edit:hover {
+    background-color: darkorange;
 }
 
 .task-button:hover {
