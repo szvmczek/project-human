@@ -89,6 +89,10 @@ a > .nav-title {
     display: flex;
 }
 
+.task-content {
+    flex: 1;
+}
+
 .task-button {
     border-radius: 8px;
     color: var(--white);
@@ -98,6 +102,13 @@ a > .nav-title {
     background-color: var(--grey);
 }
 
+.task-operation-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: end;
+    align-content: end;
+}
 .task-button-delete {
     border-radius: 5px;
     background-color: lightcoral;
@@ -105,6 +116,18 @@ a > .nav-title {
     border: none;
     width: 40px;
     height: 40px;
+}
+
+.task-button-edit {
+    border-radius: 5px;
+    background-color: darkorange;
+    color: var(--white);
+    border: none;
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+    text-align: center;
+    align-content: center;
 }
 
 .task-card .task-delete-form {

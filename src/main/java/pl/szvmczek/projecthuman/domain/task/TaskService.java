@@ -12,9 +12,11 @@ import java.util.stream.StreamSupport;
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
+    private final EntityManager em;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, EntityManager em) {
         this.taskRepository = taskRepository;
+        this.em = em;
     }
 
     @Transactional

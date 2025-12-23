@@ -25,12 +25,9 @@
                         dishes</p>
                 </div>
                 <div class="task-operation-buttons">
-                    <form action="#" class="task-delete-form" method="post" th:action="@{/edit}">
-                        <input hidden name="id" th:value="${task.id}" value="#">
-                        <button class="task-button-delete" type="submit">X</button>
-                    </form>
-                    <form action="#" class="task-delete-form" method="post" th:action="@{/delete}">
-                        <input hidden name="id" th:value="${task.id}" value="#">
+                    <a class="task-button-edit" th:href="@{|/edit?id=${task.id}|}" >//</a>
+                    <form class="task-delete-form" method="post" th:action="@{/delete}">
+                        <input hidden name="id" th:value="${task.id}">
                         <button class="task-button-delete" type="submit">X</button>
                     </form>
                 </div>

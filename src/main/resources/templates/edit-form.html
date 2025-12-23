@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+  <main class="main-content" layout:fragment="content">
+
+    <form class="form-add" method="post" th:action="@{/edit}" th:object="${task}">
+      <h2>Edit</h2>
+      <div class="form-inside">
+        <input hidden th:field="*{id}" th:value="${task.id}">
+        <input name="title" th:placeholder="${task.title}" required th:field="*{title}" type="text">
+        <input maxlength="70" name="description" th:placeholder="${task.getDescription()}" th:field="*{description}"
+               type="text">
+        <button type="submit">Save</button>
+      </div>
+    </form>
+
+  </main>
+</div>
+</body>
+</html>

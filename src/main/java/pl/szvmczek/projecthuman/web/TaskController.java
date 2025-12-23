@@ -65,4 +65,21 @@ public class TaskController {
         taskService.deleteTask(id);
         return "redirect:/";
     }
+
+    @GetMapping("/edit")
+    public String viewEditForm(@RequestParam Long id, Model model){
+        Optional<Task> task = taskService.findTaskById(id);
+        System.out.println(task.get());
+        model.addAttribute("task",task.get());
+        return "edit-form";
+    }
+
+    @PostMapping("/edit")
+    public String  editTask(@ModelAttribute Task task, @AuthenticationPrincipal UserCredentialsDto user){
+        Optional<User> authUser = userService.findUserByEmail(user.getEmail());
+        authUser.ifPresent(task::setUser);
+        taskService.saveTask(task);
+        System.out.println("-------------"+task);
+        return "redirect:/";
+    }
 }
