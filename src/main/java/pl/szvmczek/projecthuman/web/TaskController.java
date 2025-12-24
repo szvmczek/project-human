@@ -66,8 +66,12 @@ public class TaskController {
     }
 
     @GetMapping("/edit")
-    public String viewEditForm(@RequestParam Long id, Model model){
+    public String viewEditForm(@RequestParam Long id, Model model, @AuthenticationPrincipal UserCredentialsDto user){
         Optional<Task> task = taskService.findTaskById(id);
+        if(task.isEmpty())
+            return "redirect:/";
+        if(!task.get().getUser().getId().equals(user.getId()))
+            return "redirect:/";
         model.addAttribute("task",task.get());
         return "edit-form";
     }
