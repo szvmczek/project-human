@@ -198,6 +198,20 @@ body {
     border-radius: 10px;
 }
 
+.form-add > a {
+    text-decoration: none;
+    color: inherit;
+    font-size: 0.9rem;
+    display: block;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.form-add > a > p {
+    display: inline;
+    color: var(--grey);
+}
+
 .form-inside {
     display: flex;
     flex-direction: column;
