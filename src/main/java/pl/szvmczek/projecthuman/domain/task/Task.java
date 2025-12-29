@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import pl.szvmczek.projecthuman.domain.user.User;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Task {
@@ -15,12 +17,12 @@ public class Task {
     private String title;
     private String description;
     private LocalDateTime createdDate;
-    private boolean done;
+    @OneToMany(mappedBy = "task",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<TaskCompletion> completions = new HashSet<>();
 
     public Task(String title, String description) {
         this.title = title;
         this.description = description;
-        this.done = false;
         this.createdDate = LocalDateTime.now();
     }
 
@@ -59,20 +61,20 @@ public class Task {
         this.description = description;
     }
 
-    public boolean isDone() {
-        return done;
-    }
-
-    public void setDone(boolean done) {
-        this.done = done;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<TaskCompletion> getCompletions() {
+        return completions;
+    }
+
+    public void setCompletions(Set<TaskCompletion> completions) {
+        this.completions = completions;
     }
 
     @Override
@@ -83,7 +85,6 @@ public class Task {
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", createdDate=" + createdDate +
-                ", done=" + done +
                 '}';
     }
 }

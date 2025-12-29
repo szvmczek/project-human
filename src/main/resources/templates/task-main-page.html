@@ -3,9 +3,6 @@
       layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <script src="https://kit.fontawesome.com/eebc050055.js" crossorigin="anonymous"></script>
-</head>
 <body>
 <div class="container">
     <main class="main-content" layout:fragment="content">
@@ -20,7 +17,7 @@
             <div class="task-card" th:each="task : ${tasks}">
                 <form action="#" class="task-form" method="post" th:action="@{/complete}">
                     <input hidden name="id" th:value="${task.id}" value="#">
-                    <button class="task-button" th:classappend="${task.done ? 'done' : ''}" type="submit"></button>
+                    <button class="task-button" th:classappend="${task.completed ? 'done' : ''}" type="submit"></button>
                 </form>
                 <div class="task-content">
                     <p class="task-title" th:text="${task.title}">Wash dishes</p>

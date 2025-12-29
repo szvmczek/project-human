@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.szvmczek.projecthuman.domain.task.Task;
 import pl.szvmczek.projecthuman.domain.task.TaskService;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskEditDto;
+import pl.szvmczek.projecthuman.domain.task.dto.TaskViewDto;
 import pl.szvmczek.projecthuman.domain.user.User;
 import pl.szvmczek.projecthuman.domain.user.UserService;
 import pl.szvmczek.projecthuman.domain.user.dto.UserCredentialsDto;
@@ -32,7 +33,7 @@ public class TaskController {
         if(user == null){
             return "redirect:/login";
         }
-        List<Task> userTasks = taskService.findAllTasksFromUserId(user.getId());
+        List<TaskViewDto> userTasks = taskService.findAllTasksFromUserId(user.getId());
         model.addAttribute("tasks",userTasks);
         return "task-main-page";
 
@@ -53,9 +54,8 @@ public class TaskController {
     }
 
     @PostMapping("/complete")
-    public String completeTask(@RequestParam Long id){
-        Optional<Task> task = taskService.findTaskById(id);
-        task.ifPresent(t -> taskService.changeStatus(id));
+    public String completeTask(@RequestParam("id") Long taskId,@AuthenticationPrincipal UserCredentialsDto user){
+        taskService.changeStatus(taskId,user.getId());
         return "redirect:/tasks";
     }
 
@@ -78,7 +78,6 @@ public class TaskController {
 
     @PostMapping("/edit")
     public String  editTask(@ModelAttribute TaskEditDto task, @AuthenticationPrincipal UserCredentialsDto user){
-        System.out.println();
         taskService.updateTask(task,user.getId());
         return "redirect:/tasks";
     }

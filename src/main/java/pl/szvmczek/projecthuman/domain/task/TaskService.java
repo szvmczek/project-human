@@ -1,28 +1,42 @@
 package pl.szvmczek.projecthuman.domain.task;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskEditDto;
+import pl.szvmczek.projecthuman.domain.task.dto.TaskViewDto;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TaskService {
     private final TaskRepository taskRepository;
+    private final TaskCompletionRepository taskCompletionRepository;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, TaskCompletionRepository taskCompletionRepository) {
         this.taskRepository = taskRepository;
+        this.taskCompletionRepository = taskCompletionRepository;
     }
 
     @Transactional
-    public void changeStatus(Long id){
-        Task task = taskRepository.findById(id).get();
-        task.setDone(!task.isDone());
+    public void changeStatus(Long taskId,Long userId){
+        Task task = getTaskOrThrow(taskId, userId);
+        LocalDate today = LocalDate.now();
+        if(taskCompletionRepository.existsByTask_IdAndDate(taskId,today)) {
+            taskCompletionRepository.deleteByTask_IdAndDate(taskId, today);
+        }else{
+            task.getCompletions().add(new TaskCompletion(task,today));
+        }
     }
 
-    public List<Task> findAllTasksFromUserId(Long userId){
-        return taskRepository.findAllByUserId(userId);
+    public List<TaskViewDto> findAllTasksFromUserId(Long userId) {
+        List<Task> tasksByUser = taskRepository.findAllByUserId(userId);
+        return tasksByUser.stream()
+                .map(task -> TaskDtoMapper.map(task, taskCompletionRepository.existsByTask_IdAndDate(task.getId(), LocalDate.now())))
+                .toList();
     }
 
     @Transactional
@@ -43,5 +57,13 @@ public class TaskService {
 
     public Optional<Task> findTaskById(Long id){
         return taskRepository.findById(id);
+    }
+
+    private Task getTaskOrThrow(Long taskId, Long userId){
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new EntityNotFoundException("Task not found!"));
+        if(!task.getUser().getId().equals(userId))
+            throw new AccessDeniedException("No permission");
+        return task;
     }
 }
