@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskAddDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskEditDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskViewDto;
+import pl.szvmczek.projecthuman.domain.task.utils.StreakCalculator;
 import pl.szvmczek.projecthuman.domain.user.UserRepository;
 
 import java.time.LocalDate;
@@ -39,7 +40,11 @@ public class TaskService {
     public List<TaskViewDto> findAllTasksFromUserId(Long userId) {
         List<Task> tasksByUser = taskRepository.findAllByUserId(userId);
         return tasksByUser.stream()
-                .map(task -> TaskDtoMapper.map(task, taskCompletionRepository.existsByTask_IdAndDate(task.getId(), LocalDate.now())))
+                .map(task -> TaskDtoMapper.map(
+                        task,
+                        taskCompletionRepository.existsByTask_IdAndDate(task.getId(), LocalDate.now()),
+                        StreakCalculator.getTaskStreak(task)
+                ))
                 .toList();
     }
 
@@ -74,4 +79,5 @@ public class TaskService {
             throw new AccessDeniedException("No permission");
         return task;
     }
+
 }

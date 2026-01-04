@@ -30,7 +30,6 @@ public class TaskController {
         List<TaskViewDto> userTasks = taskService.findAllTasksFromUserId(user.getId());
         model.addAttribute("tasks", userTasks);
         return "task-main-page";
-
     }
 
     @GetMapping("/add")

@@ -5,16 +5,26 @@ public class TaskViewDto {
     private String title;
     private String description;
     private boolean completed;
+    private int streak;
 
-    public TaskViewDto(Long id, String title, String description, boolean completed) {
+    public TaskViewDto(Long id, String title, String description, boolean completed,int streak) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.completed = completed;
+        this.streak = streak;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public int getStreak() {
+        return streak;
+    }
+
+    public void setStreak(int streak) {
+        this.streak = streak;
     }
 
     public void setId(Long id) {

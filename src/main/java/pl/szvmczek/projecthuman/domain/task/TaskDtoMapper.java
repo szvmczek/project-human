@@ -4,8 +4,8 @@ import pl.szvmczek.projecthuman.domain.task.dto.TaskAddDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskViewDto;
 
 public class TaskDtoMapper {
-    static TaskViewDto map(Task task, boolean completed){
-        return new TaskViewDto(task.getId(), task.getTitle(), task.getDescription(), completed);
+    static TaskViewDto map(Task task, boolean completed,int streak){
+        return new TaskViewDto(task.getId(), task.getTitle(), task.getDescription(), completed,streak);
     }
 
     static Task map(TaskAddDto taskAddDto){
