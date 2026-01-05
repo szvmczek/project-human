@@ -4,6 +4,7 @@ public class TaskEditDto {
     private Long id;
     private String title;
     private String description;
+    private Long categoryId;
 
     public TaskEditDto(Long id, String title, String description) {
         this.id = id;
@@ -33,5 +34,13 @@ public class TaskEditDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

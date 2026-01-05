@@ -1,9 +1,10 @@
 package pl.szvmczek.projecthuman.domain.task;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.szvmczek.projecthuman.domain.category.Category;
+import pl.szvmczek.projecthuman.domain.category.CategoryService;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskAddDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskEditDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskViewDto;
@@ -19,11 +20,16 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final TaskCompletionRepository taskCompletionRepository;
     private final UserService userService;
+    private final CategoryService categoryService;
 
-    public TaskService(TaskRepository taskRepository, TaskCompletionRepository taskCompletionRepository, UserService userService) {
+    public TaskService(TaskRepository taskRepository,
+                       TaskCompletionRepository taskCompletionRepository,
+                       UserService userService,
+                       CategoryService categoryService) {
         this.taskRepository = taskRepository;
         this.taskCompletionRepository = taskCompletionRepository;
         this.userService = userService;
+        this.categoryService = categoryService;
     }
 
     public List<TaskViewDto> getTasksForUser(Long userId) {
@@ -40,7 +46,10 @@ public class TaskService {
     public void saveTask(TaskAddDto taskAddDto, Long userId){
         Task taskToSave = TaskDtoMapper.map(taskAddDto);
         User user = userService.findUserById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        Category category = categoryService.getCategoryByIdAndUserId(taskAddDto.getCategoryId(), userId)
+                .orElseThrow(() -> new EntityNotFoundException("Category not found"));
         taskToSave.setUser(user);
+        taskToSave.setCategory(category);
         taskRepository.save(taskToSave);
     }
 
@@ -67,10 +76,10 @@ public class TaskService {
 
     @Transactional
     public void updateTaskForUser(TaskEditDto dto, Long userId){
-        Task originalTask = taskRepository.findByIdAndUserId(dto.getId(), userId)
-                .orElseThrow(() -> new EntityNotFoundException("Task not found or wrong authentication!"));
+        Task originalTask = getTaskOrThrow(dto.getId(), userId);
         originalTask.setTitle(dto.getTitle());
         originalTask.setDescription(dto.getDescription());
+        categoryService.getCategoryByIdAndUserId(dto.getCategoryId(),userId).ifPresent(originalTask::setCategory);
     }
 
     private Task getTaskOrThrow(Long taskId, Long userId){

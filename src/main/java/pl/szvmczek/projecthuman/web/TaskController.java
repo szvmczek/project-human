@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import pl.szvmczek.projecthuman.domain.category.Category;
+import pl.szvmczek.projecthuman.domain.category.CategoryService;
 import pl.szvmczek.projecthuman.domain.task.TaskService;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskAddDto;
 import pl.szvmczek.projecthuman.domain.task.dto.TaskEditDto;
@@ -18,21 +20,27 @@ import java.util.List;
 @Controller
 public class TaskController {
     private final TaskService taskService;
+    private final CategoryService categoryService;
 
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, CategoryService categoryService) {
         this.taskService = taskService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/tasks")
     public String viewTasks(Model model, @AuthenticationPrincipal UserCredentialsDto user) {
         List<TaskViewDto> userTasks = taskService.getTasksForUser(user.getId());
+//        List<Category> userCategories = categoryService.getAllCategoriesByUser(user.getId());
         model.addAttribute("tasks", userTasks);
+//        model.addAttribute("categories", userCategories);
         return "task-main-page";
     }
 
     @GetMapping("/add")
-    public String viewAddForm(Model model) {
+    public String viewAddForm(Model model, @AuthenticationPrincipal UserCredentialsDto user) {
+        List<Category> userCategories = categoryService.getAllCategoriesByUser(user.getId());
         model.addAttribute("task", new TaskAddDto());
+        model.addAttribute("categories", userCategories);
         return "add-form";
     }
 
@@ -57,7 +65,9 @@ public class TaskController {
     @GetMapping("/edit")
     public String viewEditForm(@RequestParam Long id, Model model, @AuthenticationPrincipal UserCredentialsDto user) {
         TaskEditDto taskForEdit = taskService.getTaskForEdit(id, user.getId());
+        List<Category> userCategories = categoryService.getAllCategoriesByUser(user.getId());
         model.addAttribute("task", taskForEdit);
+        model.addAttribute("categories", userCategories);
         return "edit-form";
     }
 

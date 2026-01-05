@@ -1,10 +1,10 @@
 package pl.szvmczek.projecthuman.domain.task;
 
 import jakarta.persistence.*;
+import pl.szvmczek.projecthuman.domain.category.Category;
 import pl.szvmczek.projecthuman.domain.user.User;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,6 +20,9 @@ public class Task {
     private LocalDate createdDate;
     @OneToMany(mappedBy = "task",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<TaskCompletion> completions = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY,optional = true)
+    @JoinColumn(name = "category_id",referencedColumnName = "id",nullable = true)
+    private Category category;
 
     public Task(String title, String description) {
         this.title = title;
@@ -79,14 +82,11 @@ public class Task {
         this.completions = completions;
     }
 
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", user=" + user +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", createdDate=" + createdDate +
-                '}';
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
