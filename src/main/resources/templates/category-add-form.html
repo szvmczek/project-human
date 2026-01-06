@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+
+  <main class="main-content" layout:fragment="content">
+
+    <form action="#" class="form-add" method="post" th:action="@{/categories/add}">
+      <h2>Add a task</h2>
+      <div class="form-inside" th:object="${category}">
+        <input name="name" placeholder="name. Hobby" required th:field="*{name}" type="text">
+        <button type="submit">Save</button>
+      </div>
+    </form>
+
+  </main>
+</div>
+</body>
+</html>

@@ -3,10 +3,7 @@ package pl.szvmczek.projecthuman.web;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.szvmczek.projecthuman.domain.category.Category;
 import pl.szvmczek.projecthuman.domain.category.CategoryService;
 import pl.szvmczek.projecthuman.domain.task.TaskService;
@@ -18,6 +15,7 @@ import pl.szvmczek.projecthuman.domain.user.dto.UserCredentialsDto;
 import java.util.List;
 
 @Controller
+@RequestMapping("/tasks")
 public class TaskController {
     private final TaskService taskService;
     private final CategoryService categoryService;
@@ -27,7 +25,7 @@ public class TaskController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/tasks")
+    @GetMapping()
     public String viewTasks(Model model, @AuthenticationPrincipal UserCredentialsDto user) {
         List<TaskViewDto> userTasks = taskService.getTasksForUser(user.getId());
 //        List<Category> userCategories = categoryService.getAllCategoriesByUser(user.getId());
@@ -41,7 +39,7 @@ public class TaskController {
         List<Category> userCategories = categoryService.getAllCategoriesByUser(user.getId());
         model.addAttribute("task", new TaskAddDto());
         model.addAttribute("categories", userCategories);
-        return "add-form";
+        return "task-add-form";
     }
 
     @PostMapping("/add")
@@ -62,13 +60,13 @@ public class TaskController {
         return "redirect:/tasks";
     }
 
-    @GetMapping("/edit")
-    public String viewEditForm(@RequestParam Long id, Model model, @AuthenticationPrincipal UserCredentialsDto user) {
+    @GetMapping("/{id}/edit")
+    public String viewEditForm(@PathVariable Long id, Model model, @AuthenticationPrincipal UserCredentialsDto user) {
         TaskEditDto taskForEdit = taskService.getTaskForEdit(id, user.getId());
         List<Category> userCategories = categoryService.getAllCategoriesByUser(user.getId());
         model.addAttribute("task", taskForEdit);
         model.addAttribute("categories", userCategories);
-        return "edit-form";
+        return "task-edit-form";
     }
 
     @PostMapping("/edit")

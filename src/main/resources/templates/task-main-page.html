@@ -9,13 +9,13 @@
 
         <section class="cards-action">
             <div class="action-add">
-                <a href="#" th:href="@{/add}">+ New Task</a>
+                <a href="#" th:href="@{/tasks/add}">+ New Task</a>
             </div>
         </section>
 
         <div class="task-container" th:if="${not #lists.isEmpty(tasks)}">
             <div class="task-card" th:each="task : ${tasks}">
-                <form action="#" class="task-form" method="post" th:action="@{/complete}">
+                <form action="#" class="task-form" method="post" th:action="@{/tasks/complete}">
                     <input hidden name="id" th:value="${task.id}" value="#">
                     <button class="task-button" th:classappend="${task.completed ? 'done' : ''}" type="submit"></button>
                 </form>
@@ -26,8 +26,8 @@
                 </div>
                 <div class="task-operation-buttons">
                     <p class="task-streak" th:text="|🔥${task.streak}|">🔥20</p>
-                    <a class="task-button-edit" th:href="@{|/edit?id=${task.id}|}" ><i class="fa-solid fa-pen-to-square"></i></a>
-                    <form class="task-delete-form" method="post" th:action="@{/delete}">
+                    <a class="task-button-edit" th:href="@{|/tasks/${task.id}/edit|}" ><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form class="task-delete-form" method="post" th:action="@{/tasks/delete}">
                         <input hidden name="id" th:value="${task.id}">
                         <button class="task-button-delete" type="submit"><i class="fa-solid fa-xmark"></i></button>
                     </form>

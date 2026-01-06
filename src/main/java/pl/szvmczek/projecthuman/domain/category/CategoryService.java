@@ -2,7 +2,10 @@ package pl.szvmczek.projecthuman.domain.category;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.szvmczek.projecthuman.domain.category.dto.CategoryAddDto;
+import pl.szvmczek.projecthuman.domain.category.dto.CategoryEditDto;
+import pl.szvmczek.projecthuman.domain.task.Task;
 import pl.szvmczek.projecthuman.domain.user.User;
 import pl.szvmczek.projecthuman.domain.user.UserService;
 
@@ -33,7 +36,23 @@ public class CategoryService {
         return categoryRepository.findAllByUserId(userId);
     }
 
+    public void delete(Long categoryId, Long userId){
+        Category categoryToDelete = getCategoryOrThrow(categoryId,userId);
+        categoryRepository.delete(categoryToDelete);
+    }
+
     public Optional<Category> getCategoryByIdAndUserId(Long id, Long userId){
         return categoryRepository.findByIdAndUserId(id,userId);
+    }
+
+    @Transactional
+    public void updateCategory(CategoryEditDto dto, Long userId){
+        Category originalCategory = getCategoryOrThrow(dto.getId(),userId);
+        originalCategory.setName(dto.getName());
+    }
+
+    private Category getCategoryOrThrow(Long categoryId, Long userId){
+        return categoryRepository.findByIdAndUserId(categoryId,userId)
+                .orElseThrow(() -> new EntityNotFoundException("Task not found!"));
     }
 }

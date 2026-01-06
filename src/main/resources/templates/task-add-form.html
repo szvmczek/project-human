@@ -8,7 +8,7 @@
 
     <main class="main-content" layout:fragment="content">
 
-        <form action="#" class="form-add" method="post" th:action="@{/add}">
+        <form action="#" class="form-add" method="post" th:action="@{/tasks/add}">
             <h2>Add a task</h2>
             <div class="form-inside" th:object="${task}">
                 <input name="title" placeholder="title. Do a workout" required th:field="*{title}" type="text">

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="container">
+    <main class="main-content" layout:fragment="content">
+
+        <section class="cards-action">
+            <div class="action-add">
+                <a href="#" th:href="@{/categories/add}">+ New Category</a>
+            </div>
+        </section>
+
+        <div class="task-container" th:if="${not #lists.isEmpty(categories)}">
+            <div class="task-card" th:each="category : ${categories}">
+                <div class="task-content">
+                    <p class="task-title" th:text="${category.name}">Sport</p>
+                </div>
+                <div class="task-operation-buttons">
+                    <a class="task-button-edit" th:href="@{|/categories/${category.id}/edit|}" ><i class="fa-solid fa-pen-to-square"></i></a>
+                    <form class="task-delete-form" method="post" th:action="@{/categories/delete}">
+                        <input hidden name="id" th:value="${category.id}">
+                        <button class="task-button-delete" type="submit"><i class="fa-solid fa-xmark"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>
