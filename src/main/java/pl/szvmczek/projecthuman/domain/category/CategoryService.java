@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.szvmczek.projecthuman.domain.category.dto.CategoryAddDto;
 import pl.szvmczek.projecthuman.domain.category.dto.CategoryEditDto;
-import pl.szvmczek.projecthuman.domain.task.Task;
 import pl.szvmczek.projecthuman.domain.user.User;
 import pl.szvmczek.projecthuman.domain.user.UserService;
 

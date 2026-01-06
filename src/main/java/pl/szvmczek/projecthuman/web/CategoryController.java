@@ -9,11 +9,9 @@ import pl.szvmczek.projecthuman.domain.category.Category;
 import pl.szvmczek.projecthuman.domain.category.CategoryService;
 import pl.szvmczek.projecthuman.domain.category.dto.CategoryAddDto;
 import pl.szvmczek.projecthuman.domain.category.dto.CategoryEditDto;
-import pl.szvmczek.projecthuman.domain.task.dto.TaskEditDto;
 import pl.szvmczek.projecthuman.domain.user.dto.UserCredentialsDto;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/categories")
