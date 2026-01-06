@@ -22,6 +22,12 @@
       <li sec:authorize="isAuthenticated()" class="nav-item"><a href="#" th:href="@{/logout}">Log out</a></li>
     </ul>
   </nav>
+  <nav class="second-navbar" sec:authorize="isAuthenticated()">
+    <ul>
+      <li><a th:href="@{/tasks}">Tasks</a></li>
+      <li><a th:href="@{/categories}">Categories</a></li>
+    </ul>
+  </nav>
 
   <main class="main-content" layout:fragment="content">
   </main>

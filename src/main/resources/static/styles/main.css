@@ -69,6 +69,30 @@ body {
     text-shadow: 0 0 10px rgba(0,0,0, 0.5);
 }
 
+.second-navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.second-navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    padding: 7px;
+    background-color: rgba(var(--lblue-rgb), 0.8);
+    border-radius: 0 0 10px 10px;
+    border: 1px solid var(--lblue);
+}
+
+.second-navbar a {
+    font-size: 1.1rem;
+    padding: 5px;
+}
+.second-navbar a:hover {
+    font-weight: bold;
+}
+
 .main-content {
     margin-top: 100px;
 }
