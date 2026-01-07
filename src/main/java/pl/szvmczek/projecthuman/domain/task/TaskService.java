@@ -46,10 +46,12 @@ public class TaskService {
     public void saveTask(TaskAddDto taskAddDto, Long userId){
         Task taskToSave = TaskDtoMapper.map(taskAddDto);
         User user = userService.findUserById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        Category category = categoryService.getCategoryByIdAndUserId(taskAddDto.getCategoryId(), userId)
-                .orElseThrow(() -> new EntityNotFoundException("Category not found"));
+        if(taskAddDto.getCategoryId() != null) {
+            Category category = categoryService.getCategoryByIdAndUserId(taskAddDto.getCategoryId(), userId)
+                    .orElseThrow(() -> new EntityNotFoundException("Category not found"));
+            taskToSave.setCategory(category);
+        }
         taskToSave.setUser(user);
-        taskToSave.setCategory(category);
         taskRepository.save(taskToSave);
     }
 
