@@ -9,7 +9,7 @@
   <main class="main-content" layout:fragment="content">
 
     <form action="#" class="form-add" method="post" th:action="@{/categories/add}">
-      <h2>Add a task</h2>
+      <h2>Add Category</h2>
       <div class="form-inside" th:object="${category}">
         <input name="name" placeholder="name. Hobby" required th:field="*{name}" type="text">
         <button type="submit">Save</button>
