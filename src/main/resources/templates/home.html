@@ -3,21 +3,101 @@
       layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <script src="https://kit.fontawesome.com/eebc050055.js" crossorigin="anonymous"></script>
-</head>
 <body>
-<div class="container">
-    <main class="main-content" layout:fragment="content">
-        <h1 class="home__title">
-            <span class="home__title-word--primary">Better</span>
-            <span class="home__title-word--secondary">Easier</span>
-            <span class="home__title-word--accent">Simplier</span>
-        </h1>
-        <h2 class="home__title--second">I present to you Project Human <br><span>the ultimate way to optimize and improve your life</span></h2>
-        <section class="home__section">
-        </section>
-    </main>
-</div>
+<main class="container" layout:fragment="content">
+    <section class="home">
+        <div class="home__grid">
+            <div class="home__hero">
+                <div class="home__badge">Project Human</div>
+
+                <h1 class="home__title">
+                    Build a <span class="home__accent">system</span>, not motivation.
+                </h1>
+
+                <p class="home__subtitle">
+                    Track tasks, keep streaks, and make progress feel automatic. Minimal UI, maximum consistency.
+                </p>
+
+                <div class="home__cta">
+                    <a class="btn btn--primary" th:href="@{/tasks}">Open Tasks</a>
+                    <a class="btn" th:href="@{/register}">Create account</a>
+                </div>
+
+                <div class="home__meta">
+                    <div class="home__stat">
+                        <div class="home__stat-value">🔥</div>
+                        <div class="home__stat-label">streaks</div>
+                    </div>
+                    <div class="home__stat">
+                        <div class="home__stat-value">✓</div>
+                        <div class="home__stat-label">daily wins</div>
+                    </div>
+                    <div class="home__stat">
+                        <div class="home__stat-value">∞</div>
+                        <div class="home__stat-label">iteration</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home__panel">
+                <div class="home__panel-top">
+                    <div class="home__panel-title">Today</div>
+                    <div class="home__panel-pill">Focus</div>
+                </div>
+
+                <div class="home__demo">
+                    <article class="home__demo-card">
+                        <div class="home__demo-meta">
+                            <span class="badge">Health</span>
+                            <span class="badge badge--streak">🔥 <strong>3</strong></span>
+                        </div>
+                        <div class="home__demo-main">
+                            <div class="home__demo-text">
+                                <div class="home__demo-title">Take a shower</div>
+                                <div class="home__demo-desc">15 minutes. No excuses, just done.</div>
+                            </div>
+                            <div class="home__demo-check check check--done"></div>
+                        </div>
+                    </article>
+
+                    <article class="home__demo-card">
+                        <div class="home__demo-meta">
+                            <span class="badge">Coding</span>
+                            <span class="badge badge--ghost">🔥 0</span>
+                        </div>
+                        <div class="home__demo-main">
+                            <div class="home__demo-text">
+                                <div class="home__demo-title">Code practice</div>
+                                <div class="home__demo-desc">One small commit.</div>
+                            </div>
+                            <div class="home__demo-check check"></div>
+                        </div>
+                    </article>
+
+                    <article class="home__demo-card">
+                        <div class="home__demo-meta">
+                            <span class="badge">Mindset</span>
+                            <span class="badge badge--ghost">🔥 1</span>
+                        </div>
+                        <div class="home__demo-main">
+                            <div class="home__demo-text">
+                                <div class="home__demo-title">Meditation</div>
+                                <div class="home__demo-desc">10 minutes. Breathe.</div>
+                            </div>
+                            <div class="home__demo-check check"></div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="home__panel-foot">
+                    <div class="home__hint">
+                        Minimal UI. Clear actions. The system does the heavy lifting.
+                    </div>
+                    <a class="link" th:href="@{/login}">Already have an account? Log in</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 </body>
 </html>

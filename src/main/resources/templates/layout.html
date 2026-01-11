@@ -9,31 +9,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
   <script src="https://kit.fontawesome.com/eebc050055.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script th:src="@{/scripts/nav.js}" defer></script>
 </head>
 <body>
-<div class="container">
 
-  <nav class="navbar">
-    <a href="#" th:href="@{/}"><h1 class="nav-title">Project Human</h1></a>
-    <ul class="nav-links">
-      <li class="nav-item"><a th:href="@{/tasks}">Tasks</a></li>
-      <li class="nav-item"><a href="#">Help</a></li>
-      <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="#" th:href="@{/login}">Log in</a></li>
-      <li sec:authorize="isAuthenticated()" class="nav-item"><a href="#" th:href="@{/logout}">Log out</a></li>
-    </ul>
-  </nav>
-  <nav class="second-navbar" sec:authorize="isAuthenticated()">
-    <ul>
-      <li><a th:href="@{/tasks}">Tasks</a></li>
-      <li><a th:href="@{/categories}">Categories</a></li>
-    </ul>
-  </nav>
+<header class="topbar">
+  <div class="container topbar__inner">
+    <a class="brand" th:href="@{/}">Project Human</a>
 
-  <main class="main-content" layout:fragment="content">
-  </main>
-  <footer>
-    Github: szvmczekk
-  </footer>
-</div>
+    <nav class="nav">
+      <div class="nav__desktop">
+        <a class="nav__link" th:href="@{/tasks}">Tasks</a>
+        <a class="nav__link" th:href="@{/categories}">Categories</a>
+        <a class="nav__link" href="#">Help</a>
+
+        <a class="nav__link" sec:authorize="!isAuthenticated()" th:href="@{/login}">Log in</a>
+        <a class="nav__link" sec:authorize="isAuthenticated()" th:href="@{/logout}">Log out</a>
+      </div>
+
+      <div class="nav__mobile">
+        <button class="burger" type="button"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="mobileMenu">
+          <span class="burger__line"></span>
+          <span class="burger__line"></span>
+          <span class="burger__line"></span>
+        </button>
+
+        <div id="mobileMenu" class="menu" aria-hidden="true">
+          <a class="menu__link" th:href="@{/tasks}">Tasks</a>
+          <a class="menu__link" th:href="@{/categories}">Categories</a>
+          <a class="menu__link" href="#">Help</a>
+
+          <div class="menu__sep"></div>
+
+          <a class="menu__link" sec:authorize="!isAuthenticated()" th:href="@{/login}">Log in</a>
+          <a class="menu__link menu__link--danger" sec:authorize="isAuthenticated()" th:href="@{/logout}">Log out</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="container" layout:fragment="content"></main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span>© Project Human</span>
+    <span class="muted">build your streak, not excuses</span>
+  </div>
+</footer>
+
 </body>
 </html>

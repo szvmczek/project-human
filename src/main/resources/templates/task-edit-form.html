@@ -4,24 +4,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="container">
-  <main class="main-content" layout:fragment="content">
+<main class="main-content" layout:fragment="content">
 
     <form class="form-add" method="post" th:action="@{/tasks/edit}" th:object="${task}">
-      <h2>Edit Task</h2>
-      <div class="form-inside">
-        <input hidden th:field="*{id}" th:value="${task.id}">
-        <input name="title" th:placeholder="${task.title}" required th:field="*{title}" type="text">
-        <input maxlength="70" name="description" th:placeholder="${task.description}" th:field="*{description}"
-               type="text">
-        <select th:unless="${#lists.isEmpty(categories)}" name="categoryId" th:field="*{categoryId}">
-          <option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}">Workout</option>
-        </select>
-        <button type="submit">Save</button>
-      </div>
+        <h2>Edit Task</h2>
+        <div class="form-inside">
+            <input hidden th:field="*{id}" th:value="${task.id}">
+            <input name="title" required th:field="*{title}" th:placeholder="${task.title}" type="text">
+            <input maxlength="70" name="description" th:field="*{description}" th:placeholder="${task.description}"
+                   type="text">
+            <select name="categoryId" th:field="*{categoryId}" th:unless="${#lists.isEmpty(categories)}">
+                <option th:each="category: ${categories}" th:text="${category.name}" th:value="${category.id}">Workout
+                </option>
+            </select>
+            <button type="submit">Save</button>
+        </div>
     </form>
 
-  </main>
-</div>
+</main>
 </body>
 </html>

@@ -4,37 +4,43 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="container">
-    <main class="main-content" layout:fragment="content">
+<main class="container" layout:fragment="content">
+    <section class="page">
 
-        <section class="cards-action">
-            <div class="action-add">
-                <a href="#" th:href="@{/tasks/add}">+ New Task</a>
+        <div class="page__head">
+            <div>
+                <h1 class="title">Tasks</h1>
+                <p class="subtitle">Make small progress every day. Consistency wins with motivation</p>
             </div>
-        </section>
+            <a class="btn btn--primary" th:href="@{/tasks/add}">+ New Task</a>
+        </div>
 
-        <div class="task-container" th:if="${not #lists.isEmpty(tasks)}">
-            <div class="task-card" th:each="task : ${tasks}">
-                <form action="#" class="task-form" method="post" th:action="@{/tasks/complete}">
-                    <input hidden name="id" th:value="${task.id}" value="#">
-                    <button class="task-button" th:classappend="${task.completed ? 'done' : ''}" type="submit"></button>
-                </form>
-                <div class="task-content">
-                    <p class="task-title" th:text="${task.title}">Wash dishes</p>
-                    <p class="task-description" th:text="${task.description}">Do a 15 minute session of washing
-                        dishes</p>
-                </div>
-                <div class="task-operation-buttons">
-                    <p class="task-streak" th:text="|🔥${task.streak}|">🔥20</p>
-                    <a class="task-button-edit" th:href="@{|/tasks/${task.id}/edit|}" ><i class="fa-solid fa-pen-to-square"></i></a>
-                    <form class="task-delete-form" method="post" th:action="@{/tasks/delete}">
+        <section class="grid">
+            <article class="card"
+                     th:classappend="${task.completed ? 'card--done' : ''}"
+                     th:each="task : ${tasks}">
+                <div class="card__top">
+                    <div class="card__meta">
+                        <span class="badge" th:text="${task.category}">Health</span>
+                        <span class="badge badge--streak" th:text="|🔥${task.streak}|">🔥 7</span>
+                    </div>
+                    <form method="post" th:action="@{/tasks/complete}">
                         <input hidden name="id" th:value="${task.id}">
-                        <button class="task-button-delete" type="submit"><i class="fa-solid fa-xmark"></i></button>
+                        <button class="check" th:classappend="${task.completed ? 'check--done' : ''}"
+                                type="submit"></button>
                     </form>
                 </div>
-            </div>
-        </div>
-    </main>
-</div>
+                <h3 class="card__title" th:text="${task.title}">Clean my room</h3>
+                <p class="card__desc" th:text="${task.description}">Take out dishes and make bed</p>
+
+                <div class="card__actions">
+                    <a class="link" th:href="@{|/tasks/${task.id}/edit|}">Edit</a>
+                    <a class="link link--danger" th:href="@{|/tasks/${task.id}/delete|}">Delete</a>
+                </div>
+            </article>
+        </section>
+
+    </section>
+</main>
 </body>
 </html>

@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{layout}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="container">
-<main class="main-content" layout:fragment="content">
+<main class="container" layout:fragment="content">
+    <section class="form-page">
+        <form class="form-card" method="post" th:action="@{/register}" th:object="${user}">
+            <h2 class="form-title">Create account</h2>
+            <p class="form-subtitle">One minute now, less chaos later.</p>
 
-    <form action="#" class="form-add" method="post" th:action="@{/register}" th:object="${user}">
-        <h2>Create new account</h2>
-        <div class="form-inside">
-            <p class="form-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Errors of email</p>
-            <input type="text" th:field="*{email}" placeholder="email" required>
-            <p class="form-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Errors of password</p>
-            <input type="password" maxlength="200" th:field="*{password}" placeholder="password (min 6 characters)">
-            <button type="submit">Register</button>
-        </div>
-        <a href="#" th:href="@{/login}">Already have an account? <p>Log in</p></a>
-    </form>
+            <div class="form-fields">
+                <p class="form-error" th:errors="*{email}" th:if="${#fields.hasErrors('email')}">Invalid email</p>
 
+                <div class="field">
+                    <span class="label">Email</span>
+                    <input class="input" required th:field="*{email}" type="text" placeholder="email">
+                </div>
+
+                <p class="form-error" th:errors="*{password}" th:if="${#fields.hasErrors('password')}">Invalid password</p>
+
+                <div class="field">
+                    <span class="label">Password</span>
+                    <input class="input" maxlength="200" th:field="*{password}" type="password" placeholder="min 6 characters">
+                </div>
+
+                <div class="form-actions">
+                    <button class="btn btn--primary btn--full" type="submit">Register</button>
+                </div>
+            </div>
+
+            <div class="form-foot">
+                <span>Already have an account?</span>
+                <a th:href="@{/login}">Log in</a>
+            </div>
+        </form>
+    </section>
 </main>
-</div>
 </body>
 </html>

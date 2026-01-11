@@ -4,19 +4,23 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="container">
+<main class="container" layout:fragment="content">
+    <section class="form-page">
+        <form class="form-card" method="post" th:action="@{/categories/add}" th:object="${category}">
+            <h2 class="form-title">Add Category</h2>
 
-  <main class="main-content" layout:fragment="content">
+            <div class="form-fields">
+                <div class="field">
+                    <span class="label">Name</span>
+                    <input class="input" required th:field="*{name}" type="text" placeholder="e.g. Hobby">
+                </div>
 
-    <form action="#" class="form-add" method="post" th:action="@{/categories/add}">
-      <h2>Add Category</h2>
-      <div class="form-inside" th:object="${category}">
-        <input name="name" placeholder="name. Hobby" required th:field="*{name}" type="text">
-        <button type="submit">Save</button>
-      </div>
-    </form>
-
-  </main>
-</div>
+                <div class="form-actions">
+                    <button class="btn btn--primary btn--full" type="submit">Save</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</main>
 </body>
 </html>

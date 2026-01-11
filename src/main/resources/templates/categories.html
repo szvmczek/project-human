@@ -4,30 +4,51 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="container">
-    <main class="main-content" layout:fragment="content">
+<main class="container" layout:fragment="content">
+    <section class="page">
 
-        <section class="cards-action">
-            <div class="action-add">
-                <a href="#" th:href="@{/categories/add}">+ New Category</a>
+        <div class="page__head">
+            <div>
+                <h1 class="title">Categories</h1>
+                <p class="subtitle">Keep your tasks organized. Simple structure, clean brain.</p>
+            </div>
+            <a class="btn btn--primary" th:href="@{/categories/add}">+ New Category</a>
+        </div>
+
+        <section class="cats" th:if="${not #lists.isEmpty(categories)}">
+            <article class="cat-card" th:each="category : ${categories}">
+                <div class="cat-card__left">
+                    <div class="cat-card__dot"></div>
+                    <div class="cat-card__text">
+                        <div class="cat-card__name" th:text="${category.name}">Sport</div>
+                        <div class="cat-card__hint">Used to group tasks</div>
+                    </div>
+                </div>
+
+                <div class="cat-card__actions">
+                    <a class="icon-btn" th:href="@{|/categories/${category.id}/edit|}" aria-label="Edit category">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+
+                    <form method="post" th:action="@{/categories/delete}">
+                        <input hidden name="id" th:value="${category.id}">
+                        <button class="icon-btn icon-btn--danger" type="submit" aria-label="Delete category">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </form>
+                </div>
+            </article>
+        </section>
+
+        <section class="empty" th:if="${#lists.isEmpty(categories)}">
+            <div class="empty__card">
+                <div class="empty__title">No categories yet</div>
+                <div class="empty__desc">Create your first category to keep tasks clean and searchable.</div>
+                <a class="btn btn--primary" th:href="@{/categories/add}">+ New Category</a>
             </div>
         </section>
 
-        <div class="task-container" th:if="${not #lists.isEmpty(categories)}">
-            <div class="task-card" th:each="category : ${categories}">
-                <div class="task-content">
-                    <p class="task-title" th:text="${category.name}">Sport</p>
-                </div>
-                <div class="task-operation-buttons">
-                    <a class="task-button-edit" th:href="@{|/categories/${category.id}/edit|}" ><i class="fa-solid fa-pen-to-square"></i></a>
-                    <form class="task-delete-form" method="post" th:action="@{/categories/delete}">
-                        <input hidden name="id" th:value="${category.id}">
-                        <button class="task-button-delete" type="submit"><i class="fa-solid fa-xmark"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </main>
-</div>
+    </section>
+</main>
 </body>
 </html>
