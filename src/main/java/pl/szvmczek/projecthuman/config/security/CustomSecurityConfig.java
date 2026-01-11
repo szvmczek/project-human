@@ -19,7 +19,7 @@ public class CustomSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws SecurityException{
         http.authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/styles/**","/img/**").permitAll()
+                        .requestMatchers("/styles/**","/img/**","/scripts/**").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/**").authenticated()
                         .anyRequest().permitAll()
