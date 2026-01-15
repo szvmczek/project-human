@@ -33,16 +33,16 @@ public class TaskService {
     }
 
     @Transactional
-    public void saveTask(TaskAddDto taskAddDto, Long userId){
-        Task taskToSave = TaskDtoMapper.map(taskAddDto);
-        User user = userService.findUserById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
-        if(taskAddDto.getCategoryId() != null) {
-            Category category = categoryService.getCategoryByIdAndUserId(taskAddDto.getCategoryId(), userId)
+    public void saveTask(TaskAddDto dto, Long userId) {
+        Task task = TaskDtoMapper.map(dto);
+        User userReference = userService.getReferenceById(userId);
+        task.setUser(userReference);
+        if (dto.getCategoryId() != null) {
+            Category category = categoryService.getCategoryByIdAndUserId(dto.getCategoryId(), userId)
                     .orElseThrow(() -> new EntityNotFoundException("Category not found"));
-            taskToSave.setCategory(category);
+            task.setCategory(category);
         }
-        taskToSave.setUser(user);
-        taskRepository.save(taskToSave);
+        taskRepository.save(task);
     }
 
     @Transactional(readOnly = true)
@@ -54,57 +54,63 @@ public class TaskService {
     }
 
     @Transactional
-    public void updateTaskForUser(TaskEditDto dto, Long userId){
+    public void updateTaskForUser(TaskEditDto dto, Long userId) {
         Task originalTask = getTaskOrThrow(dto.getId(), userId);
         originalTask.setTitle(dto.getTitle());
         originalTask.setDescription(dto.getDescription());
-        categoryService.getCategoryByIdAndUserId(dto.getCategoryId(),userId).ifPresent(originalTask::setCategory);
+        categoryService.getCategoryByIdAndUserId(dto.getCategoryId(), userId).ifPresent(originalTask::setCategory);
     }
 
     @Transactional
-    public void deleteTask(Long taskId,Long userId){
+    public void deleteTask(Long taskId, Long userId) {
         Task task = getTaskOrThrow(taskId, userId);
         taskRepository.delete(task);
     }
 
     @Transactional
-    public void changeStatus(Long taskId, Long userId) {
+    public void toggleCompletion(Long taskId, Long userId) {
         Task task = getTaskOrThrow(taskId, userId);
         LocalDate today = LocalDate.now();
         boolean doneToday = taskCompletionRepository.existsByTask_IdAndDate(task.getId(), today);
-
-        if (doneToday) {
-            taskCompletionRepository.deleteByTask_IdAndDate(task.getId(), today);
-            Optional<TaskCompletion> prev =
-                    taskCompletionRepository.findTopByTask_IdAndDateLessThanOrderByDateDesc(task.getId(), today);
-            if (prev.isEmpty()) {
-                task.setLastCompletionDate(null);
-                task.setCurrentStreak(0);
-            } else {
-                LocalDate prevDate = prev.get().getDate();
-                task.setLastCompletionDate(prevDate);
-                task.setCurrentStreak(recalculateStreakEndingAt(task.getId(), prevDate));
-            }
-        } else {
-            taskCompletionRepository.save(new TaskCompletion(task, today));
-            LocalDate last = task.getLastCompletionDate();
-            if (last != null && last.isEqual(today.minusDays(1))) {
-                task.setCurrentStreak(task.getCurrentStreak() + 1);
-            } else {
-                task.setCurrentStreak(1);
-            }
-            task.setLastCompletionDate(today);
-        }
+        if (doneToday)
+            unCompleteTask(task, today);
+        else
+            completeTask(task, today);
     }
 
-    public TaskEditDto getTaskForEdit(Long taskId, Long userId){
+    public TaskEditDto getTaskForEdit(Long taskId, Long userId) {
         Task task = getTaskOrThrow(taskId, userId);
-        return new TaskEditDto(task.getId(),task.getTitle(),task.getDescription());
+        return new TaskEditDto(task.getId(), task.getTitle(), task.getDescription());
     }
 
-    private Task getTaskOrThrow(Long taskId, Long userId){
-        return taskRepository.findByIdAndUserId(taskId,userId)
+    private Task getTaskOrThrow(Long taskId, Long userId) {
+        return taskRepository.findByIdAndUserId(taskId, userId)
                 .orElseThrow(() -> new EntityNotFoundException("Task not found!"));
+    }
+
+    private void completeTask(Task task, LocalDate today) {
+        taskCompletionRepository.save(new TaskCompletion(task, today));
+        LocalDate last = task.getLastCompletionDate();
+        if (last != null && last.isEqual(today.minusDays(1))) {
+            task.setCurrentStreak(task.getCurrentStreak() + 1);
+        } else {
+            task.setCurrentStreak(1);
+        }
+        task.setLastCompletionDate(today);
+    }
+
+    private void unCompleteTask(Task task, LocalDate today) {
+        taskCompletionRepository.deleteByTask_IdAndDate(task.getId(), today);
+        Optional<TaskCompletion> prev =
+                taskCompletionRepository.findTopByTask_IdAndDateLessThanOrderByDateDesc(task.getId(), today);
+        if (prev.isEmpty()) {
+            task.setLastCompletionDate(null);
+            task.setCurrentStreak(0);
+        } else {
+            LocalDate prevDate = prev.get().getDate();
+            task.setLastCompletionDate(prevDate);
+            task.setCurrentStreak(recalculateStreakEndingAt(task.getId(), prevDate));
+        }
     }
 
     private int recalculateStreakEndingAt(Long taskId, LocalDate endDate) {

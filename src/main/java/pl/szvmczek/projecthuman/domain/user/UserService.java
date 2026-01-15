@@ -30,6 +30,10 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public User getReferenceById(Long id){
+        return userRepository.getReferenceById(id);
+    }
+
     @Transactional
     public void registerUserWithDefaultRole(UserRegistrationDto registration){
         UserRole defaultRole = userRoleRepository.findByName(DEFAULT_ROLE).orElseThrow();

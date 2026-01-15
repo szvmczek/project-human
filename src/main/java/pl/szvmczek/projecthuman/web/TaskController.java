@@ -50,7 +50,7 @@ public class TaskController {
 
     @PostMapping("/complete")
     public String completeTask(@RequestParam("id") Long taskId, @AuthenticationPrincipal UserCredentialsDto user) {
-        taskService.changeStatus(taskId, user.getId());
+        taskService.toggleCompletion(taskId, user.getId());
         return "redirect:/tasks";
     }
 
