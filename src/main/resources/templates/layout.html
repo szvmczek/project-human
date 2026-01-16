@@ -24,6 +24,7 @@
       <div class="nav__desktop">
         <a class="nav__link" th:href="@{/tasks}">Tasks</a>
         <a class="nav__link" th:href="@{/categories}">Categories</a>
+        <a class="nav__link" th:href="@{/habit-drops}">Habit Drops</a>
         <a class="nav__link" href="#">Help</a>
 
         <a class="nav__link" sec:authorize="!isAuthenticated()" th:href="@{/login}">Log in</a>
@@ -43,6 +44,7 @@
         <div id="mobileMenu" class="menu" aria-hidden="true">
           <a class="menu__link" th:href="@{/tasks}">Tasks</a>
           <a class="menu__link" th:href="@{/categories}">Categories</a>
+          <a class="menu__link" th:href="@{/habit-drops}">Habit Drops</a>
           <a class="menu__link" href="#">Help</a>
 
           <div class="menu__sep"></div>

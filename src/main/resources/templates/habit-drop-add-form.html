@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<main class="form-page container" layout:fragment="content">
+
+  <section class="form-card">
+    <h1 class="form-title">New Habit Drop</h1>
+    <p class="form-subtitle">Nadaj nazwę i krótki opis. Resztę ogarnia logika w tle.</p>
+
+    <form th:action="@{/habit-drops/add}" method="post" class="form-fields">
+      <div class="field">
+        <label class="label" for="title">Title</label>
+        <input class="input" id="title" name="title" type="text"
+               placeholder="np. Sugar, Doomscrolling, Late-night snacks"
+               maxlength="60" required>
+      </div>
+
+      <div class="field">
+        <label class="label" for="description">Description</label>
+        <input class="input" id="description" name="description" type="text"
+               placeholder="Krótko: po co, kiedy, w jakich sytuacjach."
+               maxlength="200">
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn--full" type="submit">Create</button>
+        <a class="btn" th:href="@{/habit-drops}">Cancel</a>
+      </div>
+    </form>
+
+  </section>
+
+</main>
+</body>
+</html>

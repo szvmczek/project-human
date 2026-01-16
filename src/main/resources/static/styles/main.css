@@ -785,6 +785,19 @@ button {
     background: rgba(255,255,255,.03);
 }
 
+.btn, .icon-btn { cursor: pointer; }
+
+.btn:disabled,
+.icon-btn:disabled,
+button:disabled{
+    opacity: .55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+form { margin: 0; } /* żeby formy z buttonami nie robiły dziwnych odstępów */
+
+
 /*===CATEGORIES===*/
 
 .cats{

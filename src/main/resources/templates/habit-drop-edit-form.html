@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"
+      layout:decorate="~{layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<main class="form-page container" layout:fragment="content">
+
+  <section class="form-card">
+    <h1 class="form-title">Edit Habit Drop</h1>
+    <p class="form-subtitle">Zmieniasz nazwę/opis — historia resetów i startów zostaje.</p>
+
+    <form th:action="@{/habit-drops/edit}" method="post" class="form-fields">
+
+      <input type="hidden" name="id" th:value="${habit.id}"/>
+
+      <div class="field">
+        <label class="label" for="title">Title</label>
+        <input class="input" id="title" name="title" type="text"
+               th:value="${habit.title}"
+               maxlength="60" required>
+      </div>
+
+      <div class="field">
+        <label class="label" for="description">Description</label>
+        <input class="input" id="description" name="description" type="text"
+               th:value="${habit.description}"
+               maxlength="200">
+      </div>
+
+      <div class="form-actions">
+        <button class="btn btn--full" type="submit">Save changes</button>
+        <a class="btn" th:href="@{/habit-drops}">Back</a>
+      </div>
+
+    </form>
+  </section>
+
+</main>
+</body>
+</html>
