@@ -28,9 +28,7 @@ public class TaskController {
     @GetMapping()
     public String viewTasks(Model model, @AuthenticationPrincipal UserCredentialsDto user) {
         List<TaskViewDto> userTasks = taskService.getTasksForUser(user.getId());
-//        List<Category> userCategories = categoryService.getAllCategoriesByUser(user.getId());
         model.addAttribute("tasks", userTasks);
-//        model.addAttribute("categories", userCategories);
         return "task-main-page";
     }
 
