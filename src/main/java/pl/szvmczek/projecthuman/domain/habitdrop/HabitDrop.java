@@ -14,7 +14,7 @@ public class HabitDrop {
     private String title;
     private String description;
     private LocalDate createDate;
-    private LocalDateTime startDateTime;
+    private LocalDateTime startDateTime = null;
     private boolean active = false;
     private int resetCount = 0;
     @ManyToOne(fetch = FetchType.LAZY)

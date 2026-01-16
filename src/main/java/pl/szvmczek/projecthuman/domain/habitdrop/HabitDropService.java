@@ -3,7 +3,9 @@ package pl.szvmczek.projecthuman.domain.habitdrop;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.szvmczek.projecthuman.domain.habitdrop.dto.HabitDropAddDto;
 import pl.szvmczek.projecthuman.domain.habitdrop.dto.HabitDropDto;
+import pl.szvmczek.projecthuman.domain.habitdrop.dto.HabitDropEditDto;
 import pl.szvmczek.projecthuman.domain.user.User;
 import pl.szvmczek.projecthuman.domain.user.UserService;
 
@@ -20,7 +22,7 @@ public class HabitDropService {
         this.userService = userService;
     }
 
-    public void create(HabitDropDto dto, Long userId){
+    public void create(HabitDropAddDto dto, Long userId){
         User user = userService.getReferenceById(userId);
         HabitDrop habit = HabitDropDtoMapper.map(dto);
         habit.setUser(user);
@@ -35,7 +37,7 @@ public class HabitDropService {
     }
 
     @Transactional
-    public void update(HabitDropDto dto, Long userId){
+    public void update(HabitDropEditDto dto, Long userId){
         HabitDrop originalHabit = getHabitOrThrow(dto.getId(), userId);
         originalHabit.setTitle(dto.getTitle());
         originalHabit.setDescription(dto.getDescription());
@@ -51,17 +53,24 @@ public class HabitDropService {
         HabitDrop habit = getHabitOrThrow(habitId, userId);
         habit.setResetCount(habit.getResetCount() + 1);
         habit.setStartDateTime(null);
+        habit.setActive(false);
     }
 
     @Transactional
     public void start(Long habitId, Long userId){
         HabitDrop habit = getHabitOrThrow(habitId, userId);
+        if(habit.isActive()) return;
         habit.setActive(true);
         habit.setStartDateTime(LocalDateTime.now());
     }
 
-    private HabitDrop getHabitOrThrow(Long taskId, Long userId) {
-        return habitDropRepository.findByIdAndUserId(taskId, userId)
-                .orElseThrow(() -> new EntityNotFoundException("Task not found!"));
+    public HabitDropEditDto getHabitForEdit(Long habitId, Long userId) {
+        HabitDrop habit = getHabitOrThrow(habitId, userId);
+        return HabitDropDtoMapper.mapToEdit(habit);
+    }
+
+    private HabitDrop getHabitOrThrow(Long habitId, Long userId) {
+        return habitDropRepository.findByIdAndUserId(habitId, userId)
+                .orElseThrow(() -> new EntityNotFoundException("HabitDrop not found!"));
     }
 }
