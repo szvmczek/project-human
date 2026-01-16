@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0006-1" author="szvmczek">
+        <createTable tableName="habit_drop">
+            <column name="id" autoIncrement="true" type="BIGINT">
+                <constraints primaryKey="true" unique="true"/>
+            </column>
+            <column name="title" type="VARCHAR(70)"/>
+            <column name="description" type="VARCHAR(100)"/>
+            <column name="user_id" type="BIGINT">
+                <constraints
+                        referencedTableName="users"
+                        referencedColumnNames="id"
+                        foreignKeyName="fk_habit_drop_user_id"
+                />
+            </column>
+            <column name="active" type="BOOLEAN"/>
+            <column name="create_date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reset_count" type="BIGINT"/>
+            <column name="start_date_time" type="datetime">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
