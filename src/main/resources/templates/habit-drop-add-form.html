@@ -9,7 +9,7 @@
 
   <section class="form-card">
     <h1 class="form-title">New Habit Drop</h1>
-    <p class="form-subtitle">Nadaj nazwę i krótki opis. Resztę ogarnia logika w tle.</p>
+    <p class="form-subtitle">Write the exact problem you're struggling with!</p>
 
     <form th:action="@{/habit-drops/add}" method="post" class="form-fields">
       <div class="field">
@@ -22,7 +22,7 @@
       <div class="field">
         <label class="label" for="description">Description</label>
         <input class="input" id="description" name="description" type="text"
-               placeholder="Krótko: po co, kiedy, w jakich sytuacjach."
+               placeholder="Why you want to drop this habit?"
                maxlength="200">
       </div>
 

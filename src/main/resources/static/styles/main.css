@@ -797,6 +797,11 @@ button:disabled{
 
 form { margin: 0; } /* żeby formy z buttonami nie robiły dziwnych odstępów */
 
+.live-timer{
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .02em;
+}
+
 
 /*===CATEGORIES===*/
 
