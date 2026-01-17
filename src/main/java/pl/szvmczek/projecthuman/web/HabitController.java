@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.szvmczek.projecthuman.domain.category.Category;
 import pl.szvmczek.projecthuman.domain.category.CategoryService;
 import pl.szvmczek.projecthuman.domain.habit.HabitService;
-import pl.szvmczek.projecthuman.domain.habit.dto.HabitAddDto;
-import pl.szvmczek.projecthuman.domain.habit.dto.HabitEditDto;
+import pl.szvmczek.projecthuman.domain.habit.dto.HabitCreateDto;
+import pl.szvmczek.projecthuman.domain.habit.dto.HabitUpdateDto;
 import pl.szvmczek.projecthuman.domain.habit.dto.HabitViewDto;
 import pl.szvmczek.projecthuman.domain.user.dto.UserCredentialsDto;
 
@@ -35,13 +35,13 @@ public class HabitController {
     @GetMapping("/add")
     public String viewAddForm(Model model, @AuthenticationPrincipal UserCredentialsDto user) {
         List<Category> userCategories = categoryService.getAllCategoriesByUser(user.getId());
-        model.addAttribute("habit", new HabitAddDto());
+        model.addAttribute("habit", new HabitCreateDto());
         model.addAttribute("categories", userCategories);
         return "task-add-form";
     }
 
     @PostMapping("/add")
-    public String addHabit(@ModelAttribute HabitAddDto habit, @AuthenticationPrincipal UserCredentialsDto user) {
+    public String addHabit(@ModelAttribute HabitCreateDto habit, @AuthenticationPrincipal UserCredentialsDto user) {
         habitService.saveHabit(habit, user.getId());
         return "redirect:/habits";
     }
@@ -60,7 +60,7 @@ public class HabitController {
 
     @GetMapping("/{id}/edit")
     public String viewEditForm(@PathVariable Long id, Model model, @AuthenticationPrincipal UserCredentialsDto user) {
-        HabitEditDto habitForEdit = habitService.getHabitForEdit(id, user.getId());
+        HabitUpdateDto habitForEdit = habitService.getHabitForEdit(id, user.getId());
         List<Category> userCategories = categoryService.getAllCategoriesByUser(user.getId());
         model.addAttribute("habit", habitForEdit);
         model.addAttribute("categories", userCategories);
@@ -68,7 +68,7 @@ public class HabitController {
     }
 
     @PostMapping("/edit")
-    public String editHabit(@ModelAttribute HabitEditDto habit, @AuthenticationPrincipal UserCredentialsDto user) {
+    public String editHabit(@ModelAttribute HabitUpdateDto habit, @AuthenticationPrincipal UserCredentialsDto user) {
         habitService.updateHabitForUser(habit, user.getId());
         return "redirect:/habits";
     }

@@ -1,12 +1,12 @@
 package pl.szvmczek.projecthuman.domain.habit.dto;
 
-public class HabitEditDto {
+public class HabitUpdateDto {
     private Long id;
     private String title;
     private String description;
     private Long categoryId;
 
-    public HabitEditDto(Long id, String title, String description) {
+    public HabitUpdateDto(Long id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;

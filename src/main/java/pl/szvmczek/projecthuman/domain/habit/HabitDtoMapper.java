@@ -1,6 +1,6 @@
 package pl.szvmczek.projecthuman.domain.habit;
 
-import pl.szvmczek.projecthuman.domain.habit.dto.HabitAddDto;
+import pl.szvmczek.projecthuman.domain.habit.dto.HabitCreateDto;
 import pl.szvmczek.projecthuman.domain.habit.dto.HabitViewDto;
 
 import java.time.LocalDate;
@@ -16,8 +16,8 @@ public class HabitDtoMapper {
                 getTaskCategory(habit));
     }
 
-    static Habit map(HabitAddDto habitAddDto){
-        return new Habit(habitAddDto.getTitle(), habitAddDto.getDescription());
+    static Habit map(HabitCreateDto habitCreateDto){
+        return new Habit(habitCreateDto.getTitle(), habitCreateDto.getDescription());
     }
 
     private static boolean checkIfTaskIsCompleted(Habit habit){

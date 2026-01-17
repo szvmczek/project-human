@@ -1,6 +1,6 @@
 package pl.szvmczek.projecthuman.domain.habit.dto;
 
-public class HabitAddDto {
+public class HabitCreateDto {
     private String title;
     private String description;
     private Long categoryId;

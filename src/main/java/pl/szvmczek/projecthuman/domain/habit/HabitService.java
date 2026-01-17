@@ -5,8 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.szvmczek.projecthuman.domain.category.Category;
 import pl.szvmczek.projecthuman.domain.category.CategoryService;
-import pl.szvmczek.projecthuman.domain.habit.dto.HabitAddDto;
-import pl.szvmczek.projecthuman.domain.habit.dto.HabitEditDto;
+import pl.szvmczek.projecthuman.domain.habit.dto.HabitCreateDto;
+import pl.szvmczek.projecthuman.domain.habit.dto.HabitUpdateDto;
 import pl.szvmczek.projecthuman.domain.habit.dto.HabitViewDto;
 import pl.szvmczek.projecthuman.domain.user.User;
 import pl.szvmczek.projecthuman.domain.user.UserService;
@@ -33,7 +33,7 @@ public class HabitService {
     }
 
     @Transactional
-    public void saveHabit(HabitAddDto dto, Long userId) {
+    public void saveHabit(HabitCreateDto dto, Long userId) {
         Habit habit = HabitDtoMapper.map(dto);
         User userReference = userService.getReferenceById(userId);
         habit.setUser(userReference);
@@ -54,7 +54,7 @@ public class HabitService {
     }
 
     @Transactional
-    public void updateHabitForUser(HabitEditDto dto, Long userId) {
+    public void updateHabitForUser(HabitUpdateDto dto, Long userId) {
         Habit originalHabit = getHabitOrThrow(dto.getId(), userId);
         originalHabit.setTitle(dto.getTitle());
         originalHabit.setDescription(dto.getDescription());
@@ -78,9 +78,9 @@ public class HabitService {
             completeHabit(habit, today);
     }
 
-    public HabitEditDto getHabitForEdit(Long habitId, Long userId) {
+    public HabitUpdateDto getHabitForEdit(Long habitId, Long userId) {
         Habit habit = getHabitOrThrow(habitId, userId);
-        return new HabitEditDto(habit.getId(), habit.getTitle(), habit.getDescription());
+        return new HabitUpdateDto(habit.getId(), habit.getTitle(), habit.getDescription());
     }
 
     private Habit getHabitOrThrow(Long habitId, Long userId) {
