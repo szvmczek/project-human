@@ -10,7 +10,7 @@
     <header class="page__head">
         <div>
             <h1 class="title">Habit Drops</h1>
-            <p class="subtitle">Rzeczy, które chcesz “upuścić” — startujesz, resetujesz, liczysz próby. Minimalizm, zero spiny.</p>
+            <p class="subtitle">Simply add your bad habits, "delete them", and see your streak going!</p>
         </div>
 
         <a class="btn btn--primary" th:href="@{/habit-drops/add}">+ New Habit Drop</a>
@@ -18,62 +18,39 @@
 
     <section class="grid" th:if="${habits != null and !habits.isEmpty()}">
 
-        <article class="card"
-                 th:each="h : ${habits}"
-                 th:classappend="${h.status.name() == 'ACTIVE'} ? 'card--done' : ''">
+        <article class="card" th:each="h : ${habits}" th:classappend="${h.status.name() == 'ACTIVE'} ? 'card--done' : ''">
 
             <div class="card__top">
                 <div style="min-width:0">
                     <h3 class="card__title" th:text="${h.title}">Title</h3>
                     <p class="card__desc" th:text="${h.description}">Description</p>
                 </div>
-
                 <div class="card__meta">
-          <span class="badge badge--streak"
-                th:if="${h.status.name() == 'ACTIVE'}">
-            ACTIVE
-          </span>
-                    <span class="badge badge--ghost"
-                          th:if="${h.status.name() != 'ACTIVE'}">
-            INACTIVE
-          </span>
-
-                    <span class="badge"
-                          th:text="'Resets: ' + ${h.resetCount}">
-            Resets: 0
-          </span>
+                    <span class="badge badge--streak" th:if="${h.status.name() == 'ACTIVE'}">ACTIVE</span>
+                    <span class="badge badge--ghost" th:if="${h.status.name() != 'ACTIVE'}">INACTIVE</span>
+                    <span class="badge" th:text="'Resets: ' + ${h.resetCount}">Resets: 0</span>
                 </div>
             </div>
 
             <div class="card__actions">
 
-                <!-- START (POST) -->
                 <form th:action="@{/habit-drops/{id}/start(id=${h.id})}" method="post">
-                    <button class="btn btn--primary"
-                            type="submit"
-                            th:disabled="${h.status.name() == 'ACTIVE'}">
+                    <button class="btn btn--primary" type="submit" th:disabled="${h.status.name() == 'ACTIVE'}">
                         Start
                     </button>
                 </form>
 
-                <!-- RESET (POST) -->
                 <form th:action="@{/habit-drops/{id}/reset(id=${h.id})}" method="post">
-                    <button class="btn"
-                            type="submit"
-                            th:disabled="${h.status.name() != 'ACTIVE'}">
+                    <button class="btn" type="submit" th:disabled="${h.status.name() != 'ACTIVE'}">
                         Reset
                     </button>
                 </form>
 
-                <!-- EDIT -->
                 <a class="icon-btn" th:href="@{/habit-drops/{id}/edit(id=${h.id})}" title="Edit" aria-label="Edit">
                     <i class="fa-solid fa-pen"></i>
                 </a>
 
-                <!-- DELETE (POST) -->
-                <form th:action="@{/habit-drops/{id}/delete(id=${h.id})}"
-                      method="post"
-                      onsubmit="return confirm('Usunąć ten Habit Drop?');">
+                <form th:action="@{/habit-drops/{id}/delete(id=${h.id})}" method="post" onsubmit="return confirm('Usunąć ten Habit Drop?');">
                     <button class="icon-btn icon-btn--danger" type="submit" title="Delete" aria-label="Delete">
                         <i class="fa-solid fa-trash"></i>
                     </button>
@@ -81,12 +58,10 @@
 
             </div>
 
-            <div class="muted" style="font-size:13px"
-                 th:if="${h.startDate != null}">
+            <div class="muted" style="font-size:13px" th:if="${h.startDate != null}">
                 Start: <span th:text="${#temporals.format(h.startDate, 'yyyy-MM-dd HH:mm')}"></span>
             </div>
-            <div class="muted" style="font-size:13px"
-                 th:if="${h.startDate == null}">
+            <div class="muted" style="font-size:13px" th:if="${h.startDate == null}">
                 Not started yet.
             </div>
 
@@ -98,7 +73,7 @@
         <div class="empty__card">
             <div class="empty__title">No Habit Drops yet</div>
             <div class="empty__desc">
-                Dodaj pierwszy. Potem tylko: start → walczysz → reset jak polecisz → i tak wracasz.
+                Add your first Habit Drop, the sooner you start, the sooner you will see results.
             </div>
             <a class="btn btn--primary" th:href="@{/habit-drops/add}">Add Habit Drop</a>
         </div>
