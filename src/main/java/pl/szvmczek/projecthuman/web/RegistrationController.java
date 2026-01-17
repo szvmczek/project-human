@@ -24,7 +24,7 @@ public class RegistrationController {
     @GetMapping
     public String registrationPage(Model model){
         model.addAttribute("user",new UserRegistrationDto());
-        return "registration-form";
+        return "registration";
     }
 
     @PostMapping
@@ -33,7 +33,7 @@ public class RegistrationController {
                                Model model){
         model.addAttribute("user",registration);
         if(bindingResult.hasErrors()){
-            return "registration-form";
+            return "registration";
         }
             userService.registerUserWithDefaultRole(registration);
         return "redirect:/login";

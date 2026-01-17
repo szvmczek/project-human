@@ -2,7 +2,7 @@ package pl.szvmczek.projecthuman.domain.habitdrop.dto;
 
 import java.time.LocalDateTime;
 
-public class HabitDropViewDto {
+public class BadHabitViewDto {
     private Long id;
     private String title;
     private String description;
@@ -10,7 +10,7 @@ public class HabitDropViewDto {
     private LocalDateTime startDate;
     private int resetCount;
 
-    public HabitDropViewDto(Long id, String title, String description, boolean status, LocalDateTime startDate, int resetCount) {
+    public BadHabitViewDto(Long id, String title, String description, boolean status, LocalDateTime startDate, int resetCount) {
         this.id = id;
         this.title = title;
         this.description = description;

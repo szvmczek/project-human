@@ -1,22 +1,15 @@
 package pl.szvmczek.projecthuman.domain.habitdrop.dto;
 
-public class HabitDropUpdateDto {
-    private Long id;
+public class BadHabitCreateDto {
     private String title;
     private String description;
 
-    public HabitDropUpdateDto(Long id, String title, String description) {
-        this.id = id;
+    public BadHabitCreateDto(String title, String description) {
         this.title = title;
         this.description = description;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public BadHabitCreateDto() {
     }
 
     public String getTitle() {

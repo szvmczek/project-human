@@ -27,13 +27,13 @@ public class CategoryController {
     public String categories(Model model, @AuthenticationPrincipal UserCredentialsDto user){
         List<Category> userCategories = categoryService.getAllCategoriesByUser(user.getId());
         model.addAttribute("categories", userCategories);
-        return "categories";
+        return "category";
     }
 
     @GetMapping("/add")
     public String viewAddForm(Model model) {
         model.addAttribute("category", new CategoryCreateDto());
-        return "category-add-form";
+        return "category-add";
     }
 
     @PostMapping("/add")
@@ -53,7 +53,7 @@ public class CategoryController {
         Category categoryForEdit = categoryService.getCategoryByIdAndUserId(id,user.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Category not found"));
         model.addAttribute("category", categoryForEdit);
-        return "category-edit-form";
+        return "category-edit";
     }
 
     @PostMapping("/edit")

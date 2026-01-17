@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-public class HabitDrop {
+public class BadHabit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,13 +20,13 @@ public class HabitDrop {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    public HabitDrop(String title, String description) {
+    public BadHabit(String title, String description) {
         this.title = title;
         this.description = description;
         this.createDate = LocalDate.now();
     }
 
-    public HabitDrop() {
+    public BadHabit() {
     }
 
     public Long getId() {

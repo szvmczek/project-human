@@ -29,7 +29,7 @@ public class HabitController {
     public String viewHabits(Model model, @AuthenticationPrincipal UserCredentialsDto user) {
         List<HabitViewDto> userTasks = habitService.getHabitsForUser(user.getId());
         model.addAttribute("habits", userTasks);
-        return "task-main-page";
+        return "habit";
     }
 
     @GetMapping("/add")
@@ -37,7 +37,7 @@ public class HabitController {
         List<Category> userCategories = categoryService.getAllCategoriesByUser(user.getId());
         model.addAttribute("habit", new HabitCreateDto());
         model.addAttribute("categories", userCategories);
-        return "task-add-form";
+        return "habit-add";
     }
 
     @PostMapping("/add")
@@ -64,7 +64,7 @@ public class HabitController {
         List<Category> userCategories = categoryService.getAllCategoriesByUser(user.getId());
         model.addAttribute("habit", habitForEdit);
         model.addAttribute("categories", userCategories);
-        return "task-edit-form";
+        return "habit-edit";
     }
 
     @PostMapping("/edit")
