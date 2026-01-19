@@ -1,4 +1,4 @@
-package pl.szvmczek.projecthuman.domain.habitdrop.dto;
+package pl.szvmczek.projecthuman.domain.badhabit.dto;
 
 import java.time.LocalDateTime;
 

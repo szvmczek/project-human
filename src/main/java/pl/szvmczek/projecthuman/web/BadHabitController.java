@@ -4,16 +4,16 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.szvmczek.projecthuman.domain.habitdrop.BadHabitService;
-import pl.szvmczek.projecthuman.domain.habitdrop.dto.BadHabitCreateDto;
-import pl.szvmczek.projecthuman.domain.habitdrop.dto.BadHabitViewDto;
-import pl.szvmczek.projecthuman.domain.habitdrop.dto.BadHabitUpdateDto;
+import pl.szvmczek.projecthuman.domain.badhabit.BadHabitService;
+import pl.szvmczek.projecthuman.domain.badhabit.dto.BadHabitCreateDto;
+import pl.szvmczek.projecthuman.domain.badhabit.dto.BadHabitViewDto;
+import pl.szvmczek.projecthuman.domain.badhabit.dto.BadHabitUpdateDto;
 import pl.szvmczek.projecthuman.domain.user.dto.UserCredentialsDto;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/habit-drops")
+@RequestMapping("/bad-habits")
 public class BadHabitController {
     private final BadHabitService badHabitService;
 
@@ -37,7 +37,7 @@ public class BadHabitController {
     @PostMapping("/add")
     public String addHabitDrop(@ModelAttribute BadHabitCreateDto dto, @AuthenticationPrincipal UserCredentialsDto user){
         badHabitService.create(dto,user.getId());
-        return "redirect:/habit-drops";
+        return "redirect:/bad-habits";
     }
 
     @GetMapping("/{id}/edit")
@@ -50,24 +50,24 @@ public class BadHabitController {
     @PostMapping("/edit")
     public String editHabitDrop(@ModelAttribute BadHabitUpdateDto habit, @AuthenticationPrincipal UserCredentialsDto user){
         badHabitService.update(habit, user.getId());
-        return "redirect:/habit-drops";
+        return "redirect:/bad-habits";
     }
 
     @PostMapping("/{id}/start")
     public String startHabitDrop(@PathVariable("id") Long habitId, @AuthenticationPrincipal UserCredentialsDto user){
         badHabitService.start(habitId, user.getId());
-        return "redirect:/habit-drops";
+        return "redirect:/bad-habits";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteHabitDrop(@PathVariable("id") Long habitId, @AuthenticationPrincipal UserCredentialsDto user){
         badHabitService.delete(habitId, user.getId());
-        return "redirect:/habit-drops";
+        return "redirect:/bad-habits";
     }
 
     @PostMapping("/{id}/reset")
     public String resetHabitDrop(@PathVariable("id") Long habitId, @AuthenticationPrincipal UserCredentialsDto user){
         badHabitService.reset(habitId, user.getId());
-        return "redirect:/habit-drops";
+        return "redirect:/bad-habits";
     }
 }

@@ -1,4 +1,4 @@
-package pl.szvmczek.projecthuman.domain.habitdrop;
+package pl.szvmczek.projecthuman.domain.badhabit;
 
 import jakarta.persistence.*;
 import pl.szvmczek.projecthuman.domain.user.User;

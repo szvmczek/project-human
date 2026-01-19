@@ -1,8 +1,8 @@
-package pl.szvmczek.projecthuman.domain.habitdrop;
+package pl.szvmczek.projecthuman.domain.badhabit;
 
-import pl.szvmczek.projecthuman.domain.habitdrop.dto.BadHabitCreateDto;
-import pl.szvmczek.projecthuman.domain.habitdrop.dto.BadHabitViewDto;
-import pl.szvmczek.projecthuman.domain.habitdrop.dto.BadHabitUpdateDto;
+import pl.szvmczek.projecthuman.domain.badhabit.dto.BadHabitCreateDto;
+import pl.szvmczek.projecthuman.domain.badhabit.dto.BadHabitViewDto;
+import pl.szvmczek.projecthuman.domain.badhabit.dto.BadHabitUpdateDto;
 
 public class BadHabitDtoMapper {
 

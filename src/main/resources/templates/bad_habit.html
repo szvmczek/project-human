@@ -9,11 +9,11 @@
 
     <header class="page__head">
         <div>
-            <h1 class="title">Habit Drops</h1>
+            <h1 class="title">Bad Habits</h1>
             <p class="subtitle">Simply add your bad habits, "delete them", and see your streak going!</p>
         </div>
 
-        <a class="btn btn--primary" th:href="@{/habit-drops/add}">+ New Habit Drop</a>
+        <a class="btn btn--primary" th:href="@{/bad-habits/add}">+ New Bad Habit</a>
     </header>
 
     <section class="grid" th:if="${habits != null and !habits.isEmpty()}">
@@ -34,23 +34,23 @@
 
             <div class="card__actions">
 
-                <form th:action="@{/habit-drops/{id}/start(id=${h.id})}" method="post">
+                <form th:action="@{/bad-habits/{id}/start(id=${h.id})}" method="post">
                     <button class="btn btn--primary" type="submit" th:disabled="${h.status}">
                         Start
                     </button>
                 </form>
 
-                <form th:action="@{/habit-drops/{id}/reset(id=${h.id})}" method="post">
+                <form th:action="@{/bad-habits/{id}/reset(id=${h.id})}" method="post">
                     <button class="btn" type="submit" th:disabled="${!h.status}">
                         Reset
                     </button>
                 </form>
 
-                <a class="icon-btn" th:href="@{/habit-drops/{id}/edit(id=${h.id})}" title="Edit" aria-label="Edit">
+                <a class="icon-btn" th:href="@{/bad-habits/{id}/edit(id=${h.id})}" title="Edit" aria-label="Edit">
                     <i class="fa-solid fa-pen"></i>
                 </a>
 
-                <form th:action="@{/habit-drops/{id}/delete(id=${h.id})}" method="post" onsubmit="return confirm('Delete this habit drop?');">
+                <form th:action="@{/bad-habits/{id}/delete(id=${h.id})}" method="post" onsubmit="return confirm('Delete this habit drop?');">
                     <button class="icon-btn icon-btn--danger" type="submit" title="Delete" aria-label="Delete">
                         <i class="fa-solid fa-trash"></i>
                     </button>
@@ -81,7 +81,7 @@
             <div class="empty__desc">
                 Add your first Habit Drop, the sooner you start, the sooner you will see results.
             </div>
-            <a class="btn btn--primary" th:href="@{/habit-drops/add}">Add Habit Drop</a>
+            <a class="btn btn--primary" th:href="@{/bad-habits/add}">Add Habit Drop</a>
         </div>
     </section>
 

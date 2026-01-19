@@ -11,7 +11,7 @@
     <h1 class="form-title">New Habit Drop</h1>
     <p class="form-subtitle">Write the exact problem you're struggling with!</p>
 
-    <form th:action="@{/habit-drops/add}" method="post" class="form-fields">
+    <form th:action="@{/bad-habits/add}" method="post" class="form-fields">
       <div class="field">
         <label class="label" for="title">Title</label>
         <input class="input" id="title" name="title" type="text"
@@ -28,7 +28,7 @@
 
       <div class="form-actions">
         <button class="btn btn--full" type="submit">Create</button>
-        <a class="btn" th:href="@{/habit-drops}">Cancel</a>
+        <a class="btn" th:href="@{/bad-habits}">Cancel</a>
       </div>
     </form>
 

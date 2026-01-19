@@ -1,11 +1,11 @@
-package pl.szvmczek.projecthuman.domain.habitdrop;
+package pl.szvmczek.projecthuman.domain.badhabit;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.szvmczek.projecthuman.domain.habitdrop.dto.BadHabitCreateDto;
-import pl.szvmczek.projecthuman.domain.habitdrop.dto.BadHabitViewDto;
-import pl.szvmczek.projecthuman.domain.habitdrop.dto.BadHabitUpdateDto;
+import pl.szvmczek.projecthuman.domain.badhabit.dto.BadHabitCreateDto;
+import pl.szvmczek.projecthuman.domain.badhabit.dto.BadHabitViewDto;
+import pl.szvmczek.projecthuman.domain.badhabit.dto.BadHabitUpdateDto;
 import pl.szvmczek.projecthuman.domain.user.User;
 import pl.szvmczek.projecthuman.domain.user.UserService;
 
@@ -71,6 +71,6 @@ public class BadHabitService {
 
     private BadHabit getHabitOrThrow(Long habitId, Long userId) {
         return badHabitRepository.findByIdAndUserId(habitId, userId)
-                .orElseThrow(() -> new EntityNotFoundException("HabitDrop not found!"));
+                .orElseThrow(() -> new EntityNotFoundException("BadHabit not found!"));
     }
 }
