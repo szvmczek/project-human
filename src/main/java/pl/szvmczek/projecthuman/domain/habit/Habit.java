@@ -11,28 +11,39 @@ import java.util.Set;
 @Entity
 @NamedEntityGraph(name = "Habit.category", attributeNodes = @NamedAttributeNode("category"))
 public class Habit {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "user_id",referencedColumnName = "id",nullable = false)
     private User user;
-    @Column(length = 50)
+
+    @Column(length = 50,nullable = false)
     private String title;
+
     @Column(length = 100)
     private String description;
+
     @Column(nullable = false,updatable = false)
     private LocalDate createdDate;
-    @OneToMany(mappedBy = "habit",fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE,CascadeType.PERSIST})
+
+    @OneToMany(mappedBy = "habit",fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE,CascadeType.PERSIST}, orphanRemoval = true)
     private Set<HabitCompletion> completions = new HashSet<>();
+
     private int currentStreak = 0;
+
     private LocalDate lastCompletionDate;
+
     @ManyToOne(fetch = FetchType.LAZY,optional = true)
     @JoinColumn(name = "category_id",referencedColumnName = "id",nullable = true)
     private Category category;
 
     public Habit(String title, String description) {
+        if(title == null || title.isBlank()) throw new IllegalArgumentException("Title cannot be empty");
         this.title = title.trim();
-        this.description = description;
+        this.description = description == null? null: description.trim();
         this.createdDate = LocalDate.now();
         this.currentStreak = 0;
     }
@@ -43,10 +54,6 @@ public class Habit {
 
     public LocalDate getCreatedDate() {
         return createdDate;
-    }
-
-    public void setCreatedDate(LocalDate createdDate) {
-        this.createdDate = createdDate;
     }
 
     public Long getId() {
@@ -62,7 +69,7 @@ public class Habit {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.trim();
     }
 
     public String getDescription() {
@@ -70,7 +77,7 @@ public class Habit {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description.trim();
     }
 
     public User getUser() {

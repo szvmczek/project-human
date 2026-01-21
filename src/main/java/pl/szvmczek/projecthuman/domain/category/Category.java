@@ -8,11 +8,15 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
     private User user;
+
+    @Column(length = 50,nullable = false)
     private String name;
 
     public Category(String name) {
+        if(name == null || name.isBlank()) throw new IllegalArgumentException("Name cannot be empty");
         this.name = name.trim();
     }
 
