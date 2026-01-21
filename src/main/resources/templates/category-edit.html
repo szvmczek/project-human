@@ -9,12 +9,17 @@
         <form class="form-card" method="post" th:action="@{/categories/edit}" th:object="${category}">
             <h2 class="form-title">Edit Category</h2>
 
+            <div class="form-error" th:if="${#fields.hasErrors('*')}">
+                Please fix the errors below.
+            </div>
+
             <div class="form-fields">
                 <input hidden th:field="*{id}" th:value="${category.id}">
 
                 <div class="field">
                     <span class="label">Name</span>
                     <input class="input" required th:field="*{name}" type="text" placeholder="Category name">
+                    <div class="field-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
                 </div>
 
                 <div class="form-actions">

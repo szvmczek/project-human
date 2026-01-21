@@ -13,7 +13,7 @@ public class Category {
     private String name;
 
     public Category(String name) {
-        this.name = name;
+        this.name = name.trim();
     }
 
     public Category() {
@@ -24,7 +24,7 @@ public class Category {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.trim();
     }
 
     public Long getId() {

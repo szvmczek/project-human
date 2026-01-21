@@ -1,9 +1,11 @@
 package pl.szvmczek.projecthuman.web;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.szvmczek.projecthuman.domain.category.Category;
 import pl.szvmczek.projecthuman.domain.category.CategoryService;
@@ -37,7 +39,11 @@ public class CategoryController {
     }
 
     @PostMapping("/add")
-    public String addCategory(@ModelAttribute CategoryCreateDto dto, @AuthenticationPrincipal UserCredentialsDto user) {
+    public String addCategory(@ModelAttribute("category") @Valid CategoryCreateDto dto,
+                              BindingResult exceptions,
+                              @AuthenticationPrincipal UserCredentialsDto user) {
+        if(exceptions.hasErrors())
+            return "category-add";
         categoryService.save(dto,user.getId());
         return "redirect:/categories";
     }
@@ -57,7 +63,11 @@ public class CategoryController {
     }
 
     @PostMapping("/edit")
-    public String editCategory(@ModelAttribute CategoryUpdateDto category, @AuthenticationPrincipal UserCredentialsDto user) {
+    public String editCategory(@ModelAttribute("category") @Valid CategoryUpdateDto category,
+                               BindingResult exceptions,
+                               @AuthenticationPrincipal UserCredentialsDto user) {
+        if(exceptions.hasErrors())
+            return "category-edit";
         categoryService.updateCategory(category,user.getId());
         return "redirect:/categories";
     }
