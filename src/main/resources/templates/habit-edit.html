@@ -9,17 +9,24 @@
         <form class="form-card" method="post" th:action="@{/habits/edit}" th:object="${habit}">
             <h2 class="form-title">Edit Habit</h2>
 
+            <div class="form-error" th:if="${#fields.hasErrors('*')}">
+                Please fix the errors below.
+            </div>
+
             <div class="form-fields">
                 <input hidden th:field="*{id}" th:value="${habit.id}">
+                <div class="field-error" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></div>
 
                 <div class="field">
                     <span class="label">Title</span>
                     <input class="input" required th:field="*{title}" type="text" placeholder="Title">
+                    <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                 </div>
 
                 <div class="field">
                     <span class="label">Description</span>
                     <input class="input" maxlength="70" th:field="*{description}" type="text" placeholder="Description">
+                    <div class="field-error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                 </div>
 
                 <div class="field" th:unless="${#lists.isEmpty(categories)}">
@@ -27,12 +34,14 @@
                     <select class="select" th:field="*{categoryId}">
                         <option th:each="category: ${categories}" th:text="${category.name}" th:value="${category.id}">Category</option>
                     </select>
+                    <div class="field-error" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></div>
                 </div>
 
                 <div class="form-actions">
                     <button class="btn btn--primary btn--full" type="submit">Save</button>
                 </div>
             </div>
+
         </form>
     </section>
 </main>

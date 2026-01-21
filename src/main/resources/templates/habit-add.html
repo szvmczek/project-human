@@ -13,7 +13,6 @@
 
             <h2 class="form-title">Add Habit</h2>
 
-            <!-- GLOBAL ERROR (opcjonalnie, ale mega przydatne) -->
             <div class="form-error" th:if="${#fields.hasErrors('*')}">
                 Please fix the errors below.
             </div>
@@ -26,11 +25,7 @@
                            type="text"
                            placeholder="e.g. Do a workout">
 
-                    <!-- ERROR: title -->
-                    <div class="field-error"
-                         th:if="${#fields.hasErrors('title')}"
-                         th:errors="*{title}">
-                    </div>
+                    <div class="field-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                 </div>
 
                 <div class="field">
@@ -41,17 +36,12 @@
                            type="text"
                            placeholder="e.g. 30 minutes of running">
 
-                    <!-- ERROR: description -->
-                    <div class="field-error"
-                         th:if="${#fields.hasErrors('description')}"
-                         th:errors="*{description}">
-                    </div>
+                    <div class="field-error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
                 </div>
 
                 <div class="field" th:unless="${#lists.isEmpty(categories)}">
                     <span class="label">Category</span>
                     <select class="select" th:field="*{categoryId}">
-                        <!-- opcjonalnie placeholder -->
                         <option value="" disabled selected>Choose category</option>
 
                         <option th:each="category: ${categories}"
@@ -61,11 +51,7 @@
                         </option>
                     </select>
 
-                    <!-- ERROR: categoryId -->
-                    <div class="field-error"
-                         th:if="${#fields.hasErrors('categoryId')}"
-                         th:errors="*{categoryId}">
-                    </div>
+                    <div class="field-error" th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}"></div>
                 </div>
 
                 <div class="form-actions">

@@ -75,7 +75,9 @@ public class HabitController {
     }
 
     @PostMapping("/edit")
-    public String editHabit(@ModelAttribute HabitUpdateDto habit, @AuthenticationPrincipal UserCredentialsDto user) {
+    public String editHabit(@ModelAttribute HabitUpdateDto habit,BindingResult exceptions, @AuthenticationPrincipal UserCredentialsDto user) {
+        if(exceptions.hasErrors())
+            return "habit-edit";
         habitService.updateHabitForUser(habit, user.getId());
         return "redirect:/habits";
     }
